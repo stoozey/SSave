@@ -1,6 +1,6 @@
 // See scr_ssave_demo for ConfigFile/SaveFile implementation
 
-#region example config
+#region example ConfigFile
 
 config = new ConfigFile();
 config.load();
@@ -11,7 +11,7 @@ config.save();
 
 #endregion
 
-#region multiple of the same SSave
+#region example SaveFile - multiple of the same SSave
 
 // 1
 save1 = new SaveFile();
