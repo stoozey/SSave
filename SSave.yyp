@@ -1,0 +1,51 @@
+{
+  "resourceType": "GMProject",
+  "resourceVersion": "1.6",
+  "name": "SSave",
+  "resources": [
+    {"id":{"name":"obj_ssave_demo","path":"objects/obj_ssave_demo/obj_ssave_demo.yy",},"order":1,},
+    {"id":{"name":"__scr_ssave_value","path":"scripts/__scr_ssave_value/__scr_ssave_value.yy",},"order":1,},
+    {"id":{"name":"__scr_ssave_init","path":"scripts/__scr_ssave_init/__scr_ssave_init.yy",},"order":3,},
+    {"id":{"name":"scr_ssave_config","path":"scripts/scr_ssave_config/scr_ssave_config.yy",},"order":2,},
+    {"id":{"name":"scr_ssave","path":"scripts/scr_ssave/scr_ssave.yy",},"order":0,},
+    {"id":{"name":"__scr_ssave_util","path":"scripts/__scr_ssave_util/__scr_ssave_util.yy",},"order":2,},
+    {"id":{"name":"__scr_ssave_macros","path":"scripts/__scr_ssave_macros/__scr_ssave_macros.yy",},"order":0,},
+    {"id":{"name":"rm_ssave_demo","path":"rooms/rm_ssave_demo/rm_ssave_demo.yy",},"order":0,},
+  ],
+  "Options": [
+    {"name":"Android","path":"options/android/options_android.yy",},
+    {"name":"HTML5","path":"options/html5/options_html5.yy",},
+    {"name":"iOS","path":"options/ios/options_ios.yy",},
+    {"name":"Linux","path":"options/linux/options_linux.yy",},
+    {"name":"macOS","path":"options/mac/options_mac.yy",},
+    {"name":"Main","path":"options/main/options_main.yy",},
+    {"name":"tvOS","path":"options/tvos/options_tvos.yy",},
+    {"name":"Windows","path":"options/windows/options_windows.yy",},
+    {"name":"operagx","path":"options/operagx/options_operagx.yy",},
+  ],
+  "defaultScriptType": 1,
+  "isEcma": false,
+  "configs": {
+    "name": "Default",
+    "children": [],
+  },
+  "RoomOrderNodes": [
+    {"roomId":{"name":"rm_ssave_demo","path":"rooms/rm_ssave_demo/rm_ssave_demo.yy",},},
+  ],
+  "Folders": [
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Demo","folderPath":"folders/Demo.yy","order":0,},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"SSave","folderPath":"folders/SSave.yy","order":1,},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Internal","folderPath":"folders/SSave/Internal.yy","order":1,},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Tools","folderPath":"folders/SSave/Internal/Tools.yy","order":4,},
+  ],
+  "AudioGroups": [
+    {"resourceType":"GMAudioGroup","resourceVersion":"1.3","name":"audiogroup_default","targets":-1,},
+  ],
+  "TextureGroups": [
+    {"resourceType":"GMTextureGroup","resourceVersion":"1.3","name":"Default","isScaled":true,"compressFormat":"bz2","autocrop":true,"border":2,"mipsToGenerate":0,"groupParent":null,"targets":-1,},
+  ],
+  "IncludedFiles": [],
+  "MetaData": {
+    "IDEVersion": "2022.8.1.37",
+  },
+}

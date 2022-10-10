@@ -1,0 +1,1 @@
+#macro SSAVE_DIRECTORY ""	// The directory that saves are saved to. This must end with a slash!
