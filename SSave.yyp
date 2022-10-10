@@ -7,6 +7,7 @@
     {"id":{"name":"__scr_ssave_value","path":"scripts/__scr_ssave_value/__scr_ssave_value.yy",},"order":1,},
     {"id":{"name":"__scr_ssave_init","path":"scripts/__scr_ssave_init/__scr_ssave_init.yy",},"order":3,},
     {"id":{"name":"scr_ssave_config","path":"scripts/scr_ssave_config/scr_ssave_config.yy",},"order":2,},
+    {"id":{"name":"scr_ssave_demo","path":"scripts/scr_ssave_demo/scr_ssave_demo.yy",},"order":2,},
     {"id":{"name":"scr_ssave","path":"scripts/scr_ssave/scr_ssave.yy",},"order":0,},
     {"id":{"name":"__scr_ssave_util","path":"scripts/__scr_ssave_util/__scr_ssave_util.yy",},"order":2,},
     {"id":{"name":"__scr_ssave_macros","path":"scripts/__scr_ssave_macros/__scr_ssave_macros.yy",},"order":0,},

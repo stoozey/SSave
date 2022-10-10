@@ -1,6 +1,18 @@
 function SSave(_name = "data") constructor
 {
-	static get_value = function(_name)
+	static get = function(_name)
+	{
+		var _valueData = get_value_data(_name);
+		return _valueData.get();
+	}
+	
+	static set = function(_name, _value)
+	{
+		var _valueData = get_value_data(_name);
+		_valueData.set(_value);
+	}
+	
+	static get_value_data = function(_name)
 	{
 		var _value = __values[$ _name];
 		if (_value != undefined)
@@ -76,7 +88,7 @@ function SSave(_name = "data") constructor
 		repeat (array_length(_names))
 		{
 			var _name = _names[i++];
-			_save[$ _name] = get_value(_name);
+			_save[$ _name] = get_value_data(_name);
 		}
 		
 		return _save;
