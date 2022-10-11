@@ -1,14 +1,14 @@
 function ConfigFile() : SSave("config") constructor
 {
-	add_value("volume_music", SSaveValueType.Real, 0.75);
-	add_value("volume_sfx", SSaveValueType.Real, 1);
+	add_value("volume_music", SSAVE_TYPE.REAL, 0.75);
+	add_value("volume_sfx", SSAVE_TYPE.REAL, 1);
 	
-	add_value("subtitles", SSaveValueType.Boolean, true);
+	add_value("subtitles", SSAVE_TYPE.BOOLEAN, true);
 }
 
-function SaveFile() : SSave("save") constructor
+function SaveFile() : SSave("save", SSAVE_PROTECTION.ENCRYPT) constructor
 {
-	add_value("level", SSaveValueType.Real, 1);
-	add_value("name", SSaveValueType.String, "stoozey_");
-	add_value("awesome", SSaveValueType.Boolean, false);
+	add_value("level", SSAVE_TYPE.REAL, 1);
+	add_value("name", SSAVE_TYPE.STRING, "stoozey_");
+	add_value("awesome", SSAVE_TYPE.BOOLEAN, false);
 }

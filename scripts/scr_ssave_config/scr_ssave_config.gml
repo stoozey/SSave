@@ -1,1 +1,3 @@
 #macro SSAVE_DIRECTORY ""	// The directory that saves are saved to. This must end with a slash!
+#macro SSAVE_PROTECTION_DEFAULT SSAVE_PROTECTION.NONE
+#macro SSAVE_ENCRYPTION_KEY 6942013376969696969420487293648237687

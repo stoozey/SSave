@@ -21,19 +21,19 @@ function __ssave_class_value(_name, _type, _defaultValue) constructor
 	{
 		switch (__type)
 		{
-			case SSaveValueType.Array:
+			case SSAVE_TYPE.ARRAY:
 				return is_array;
 			
-			case SSaveValueType.Boolean:
+			case SSAVE_TYPE.BOOLEAN:
 				return is_bool;
 			
-			case SSaveValueType.Real:
+			case SSAVE_TYPE.REAL:
 				return is_real;
 			
-			case SSaveValueType.String:
+			case SSAVE_TYPE.STRING:
 				return is_string;
 			
-			case SSaveValueType.Struct:
+			case SSAVE_TYPE.STRUCT:
 				return is_struct;
 		}
 	}
