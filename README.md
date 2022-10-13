@@ -1,7 +1,7 @@
 
 <p align="center">
 <div align="center">
-  <img src="https://imgur.com/7c0Libn.png" alt="SSave - A simple save file system for GameMaker" height=200/>
+  <img src="https://imgur.com/7c0Libn.png" alt="SSave - A simple save file system for GameMaker" _target="blank" height=200/>
   </div>
   <div align="center">
    A simple save file system for GameMaker
