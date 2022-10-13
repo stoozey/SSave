@@ -1,6 +1,11 @@
+///@desc The base constructor for the SSave file (this should be inherited from a new class - e.g "SaveFile() : SSave() constructor")
+///@param {string} [name The name of the file that gets saved
+///@param {SSAVE_PROTECTION} protection] The amount of protection that the data receives
 function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) constructor
 {
-	static get = function(_name, _defaultValue)
+	///@desc Gets a value in the ssave
+	///@param {string} name The name of the value
+	static get = function(_name)
 	{
 		var _valueData = __get_value_data(_name);
 		if (_valueData == undefined)
@@ -9,6 +14,9 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 		return _valueData.get();
 	}
 	
+	///@desc Updates a value in the ssave
+	///@param {string} name The name of the value
+	///@param {any} value The value to be set
 	static set = function(_name, _value)
 	{
 		var _valueData = __get_value_data(_name);
@@ -18,17 +26,51 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 		_valueData.set(_value);
 	}
 	
+	///@desc Adds a new value to the ssave (This is intended to be called inside the constructor, see the demo for example)
+	///@param {string} name The name of the value
+	///@param {SSAVE_TYPE} type The type of the value
+	///@param {any} defaultValue The default value
 	static add_value = function(_name, _type, _defaultValue)
 	{
 		var _value = new __ssave_class_value(_name, _type, _defaultValue);
 		__values[$ _name] = _value;
 	}
 	
+	///@desc Saves the ssave to file
+	///@param {string} [filePrefix] A prefix to the filename (useful for storing multiple of the same type of SSave, see the demo for example)
 	static save = function(_filePrefix = "")
+	{
+		var _filename = __get_filename(_filePrefix);
+		return __save_to_file(_filename);
+	}
+	
+	///@desc Loads the ssave from a file
+	///@param {string} [filePrefix] The prefix of the filename (useful for storing multiple of the same type of SSave, see the demo for example)
+	static load = function(_filePrefix = "")
+	{
+		var _filename = __get_filename(_filePrefix);
+		return __load_from_file(_filename);
+	}
+	
+	///@desc Returns the current SSAVE_PROTECTION type
+	static get_protection = function()
+	{
+		return __protection;
+	}
+	
+	///@desc Updates the current SSAVE_PROTECTION type
+	///@param {SSAVE_PROTECTION} protection The new SSAVE_PROTECTION type
+	static set_protection = function(_protection)
+	{
+		__protection = _protection;
+	}
+	
+	#region internal
+	
+	static __save_to_file = function(_filename)
 	{
 		try
 		{
-			var _filename = __get_filename(_filePrefix);
 			var _save = __generate_output_struct();
 			var _json = json_stringify(_save);
 			var _data;
@@ -65,11 +107,10 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 		}
 	}
 	
-	static load = function(_filePrefix = "")
+	static __load_from_file = function(_filename)
 	{
 		try
 		{
-			var _filename = __get_filename(_filePrefix);
 			if (!file_exists(_filename)) return false;
 			
 			var _buffer = buffer_load(_filename);
@@ -116,21 +157,11 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 			delete _save;
 			return true;
 		}
-		//catch (_e)
-		//{
-		//	__ssave_print("error loading file \"", _filename, "\" | ", _e.message);
-		//	return false;
-		//}
-	}
-	
-	static get_protection = function()
-	{
-		return __protection;
-	}
-	
-	static set_protection = function(_protection)
-	{
-		__protection = _protection;
+		catch (_e)
+		{
+			__ssave_print("error loading file \"", _filename, "\" | ", _e.message);
+			return false;
+		}
 	}
 	
 	static __get_value_data = function(_name)
@@ -166,4 +197,6 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 	__protection = _protection;
 	
 	__values = { };
+	
+	#endregion
 }
