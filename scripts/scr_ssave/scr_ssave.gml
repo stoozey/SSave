@@ -2,7 +2,7 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 {
 	static get = function(_name, _defaultValue)
 	{
-		var _valueData = get_value_data(_name);
+		var _valueData = __get_value_data(_name);
 		if (_valueData == undefined)
 			return __throw_name_doesnt_exist(_name);
 		
@@ -11,16 +11,11 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 	
 	static set = function(_name, _value)
 	{
-		var _valueData = get_value_data(_name);
+		var _valueData = __get_value_data(_name);
 		if (_valueData == undefined)
 			return __throw_name_doesnt_exist(_name);
 		
 		_valueData.set(_value);
-	}
-	
-	static get_value_data = function(_name)
-	{
-		return __values[$ _name];
 	}
 	
 	static add_value = function(_name, _type, _defaultValue)
@@ -49,20 +44,16 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 					break;
 				
 				case SSAVE_PROTECTION.ENCRYPT:
+					__ssave_print("encrypted");
 					_data = SphinxEncryptString(_json, SSAVE_ENCRYPTION_KEY);
 					break;
 			}
 			
+			var _buffer = buffer_create(1024, buffer_grow, 1);
 			var _header = new __ssave_class_header();
-			var _headerBuffer = _header.generate_buffer(self);
-			var _headerBufferEncoded = buffer_base64_encode(_headerBuffer, 0, buffer_get_size(_headerBuffer));
-			buffer_delete(_headerBuffer);
-			
-			var _file = file_text_open_write(_filename);
-				file_text_write_string(_file, _headerBufferEncoded);
-				file_text_writeln(_file);
-				file_text_write_string(_file, _json);
-			file_text_close(_file);
+			_header.write_to_buffer(_buffer, self);
+			buffer_write(_buffer, buffer_string, _data);
+			buffer_save(_buffer, _filename);
 		
 			__ssave_print("saved file to: ", _filename);
 			return true;
@@ -80,16 +71,19 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 		{
 			var _filename = __get_filename(_filePrefix);
 			if (!file_exists(_filename)) return false;
-		
-			var _file = file_text_open_read(_filename);
-				var _headerEncoded = file_text_readln(_file);
-				var _data = file_text_read_string(_file);
-			file_text_close(_file);
 			
+			var _buffer = buffer_load(_filename);
 			var _header = new __ssave_class_header();
-			var _headerBuffer = buffer_base64_decode(_headerEncoded);
-			_header.load_from_buffer(_headerBuffer);
-			buffer_delete(_headerBuffer);
+			_header.read_from_buffer(_buffer);
+			
+			var _data;
+			switch (_header.get_version())
+			{
+				default:
+				case "1.0.0":
+					_data = buffer_read(_buffer, buffer_string);
+					break;
+			}
 			
 			var _json;
 			switch (_header.get_protection())
@@ -122,11 +116,11 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 			delete _save;
 			return true;
 		}
-		catch (_e)
-		{
-			__ssave_print("error loading file \"", _filename, "\" | ", _e.message);
-			return false;
-		}
+		//catch (_e)
+		//{
+		//	__ssave_print("error loading file \"", _filename, "\" | ", _e.message);
+		//	return false;
+		//}
 	}
 	
 	static get_protection = function()
@@ -134,9 +128,19 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 		return __protection;
 	}
 	
-	static __throw_name_doesnt_exist = function(_name)
+	static set_protection = function(_protection)
 	{
-		throw ("SSave value name \"" + _name + "\" doesn't exist--did you get the name wrong?");
+		__protection = _protection;
+	}
+	
+	static __get_value_data = function(_name)
+	{
+		return __values[$ _name];
+	}
+	
+	static __get_filename = function(_prefix = "")
+	{
+		return (SSAVE_DIRECTORY + _prefix + __name + "." + __SSAVE_FILE_EXTENSION);
 	}
 	
 	static __generate_output_struct = function()
@@ -153,9 +157,9 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 		return _save;
 	}
 	
-	static __get_filename = function(_prefix = "")
+	static __throw_name_doesnt_exist = function(_name)
 	{
-		return (SSAVE_DIRECTORY + _prefix + __name + "." + __SSAVE_FILE_EXTENSION);
+		throw ("SSave value name \"" + _name + "\" doesn't exist--did you get the name wrong?");
 	}
 	
 	__name = _name;

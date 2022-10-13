@@ -6,7 +6,7 @@ function ConfigFile() : SSave("config") constructor
 	add_value("subtitles", SSAVE_TYPE.BOOLEAN, true);
 }
 
-function SaveFile() : SSave("save", SSAVE_PROTECTION.ENCRYPT) constructor
+function SaveFile() : SSave("save") constructor
 {
 	add_value("level", SSAVE_TYPE.REAL, 1);
 	add_value("name", SSAVE_TYPE.STRING, "stoozey_");

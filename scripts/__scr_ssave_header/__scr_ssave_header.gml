@@ -1,27 +1,25 @@
 function __ssave_class_header() constructor
 {
-	static generate_buffer = function(_ssave)
-	{
-		var _buffer = buffer_create(1024, buffer_grow, 1);
-		buffer_write(_buffer, buffer_string, "SSAVE");
-		buffer_write(_buffer, buffer_u64, 0);
+	#macro __SSAVE_HEADER_SIZE 64
 	
+	static write_to_buffer = function(_buffer, _ssave)
+	{
+		buffer_write(_buffer, buffer_string, "SSAVE");
+
 		buffer_write(_buffer, buffer_string, __SSAVE_VERSION);
 		buffer_write(_buffer, buffer_u8, _ssave.get_protection());
-	
-		return _buffer;
+		
+		buffer_seek(_buffer, buffer_seek_start, __SSAVE_HEADER_SIZE);
 	}
 	
-	static load_from_buffer = function(_buffer, _destroyBuffer = true)
+	static read_from_buffer = function(_buffer)
 	{
+		buffer_seek(_buffer, buffer_seek_start, 0);
+		
 		var _ssav = buffer_read(_buffer, buffer_string);
 		if (_ssav != "SSAVE")
-			return __throw_not_an_ssav();
-		
-		var _align = buffer_read(_buffer, buffer_u64);
-		if (_align != 0)
-			return __throw_not_an_ssav();
-		
+			return __throw_not_an_ssave();
+
 		var _protection;
 		var _version = buffer_read(_buffer, buffer_string);
 		switch (_version)
@@ -31,6 +29,8 @@ function __ssave_class_header() constructor
 				_protection = buffer_read(_buffer, buffer_u8);
 				break;
 		}
+		
+		buffer_seek(_buffer, buffer_seek_start, __SSAVE_HEADER_SIZE);
 		
 		__version = _version;
 		__protection = (_protection ?? __protection);
@@ -46,7 +46,7 @@ function __ssave_class_header() constructor
 		return __protection;
 	}
 	
-	static __throw_not_an_ssav = function()
+	static __throw_not_an_ssave = function()
 	{
 		throw "File is not a real SSave file";
 	}

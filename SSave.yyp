@@ -45,8 +45,8 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Demo","folderPath":"folders/Demo.yy","order":0,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"SSave","folderPath":"folders/SSave.yy","order":1,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Internal","folderPath":"folders/SSave/Internal.yy","order":1,},
-    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Sphinx","folderPath":"folders/SSave/Internal/3rd Party/Sphinx.yy","order":0,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"3rd Party","folderPath":"folders/SSave/Internal/3rd Party.yy","order":5,},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Sphinx","folderPath":"folders/SSave/Internal/3rd Party/Sphinx.yy","order":0,},
   ],
   "AudioGroups": [
     {"resourceType":"GMAudioGroup","resourceVersion":"1.3","name":"audiogroup_default","targets":-1,},
