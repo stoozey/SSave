@@ -1,9 +1,13 @@
 
-![SSave](https://imgur.com/7c0Libn.png)
-
- _A simple save file system for GameMaker_
- 
-#### SSave is also available for download [on Itch.io](https://stoozey.itch.io/ssave).
+<p align="center">
+<div align="center">
+  <img src="https://imgur.com/7c0Libn.png" alt="SSave - A simple save file system for GameMaker" height=200/>
+  </div>
+  <div align="center">
+   A simple save file system for GameMaker
+   <p>Available for download <a href="https://stoozey.itch.io/ssave"> on Itch.io</a>.</p>
+   </div>
+</p>
 
 While at first save files can seem simple, there are a lot of issues that come from just simply saving and loading raw data.
 SSave tackles these problems whilst also having quality-of-life features that make creating save data easier and more secure.
