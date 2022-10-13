@@ -8,16 +8,7 @@ function __ssave_class_value(_name, _type, _defaultValue) constructor
 	static set = function(_value)
 	{
 		if (!__is_type(_value))
-		{
-			//if (SSAVE_AUTO_CAST_INVALID_TYPES)
-			//{
-			//	var _casted = __typeCaster();
-			//	if (!__typeChecker(_casted))
-			//}
-			
-			__ssave_print("Tried to set the value of ", __name, " to something other than it's type. Ignoring request.");
-			return;
-		}
+			return __ssave_print("Tried to set the value of ", __name, " to something other than it's type. Ignoring request.");
 		
 		switch (__type)
 		{
@@ -53,27 +44,6 @@ function __ssave_class_value(_name, _type, _defaultValue) constructor
 		}
 	}
 	
-	static __get_type_caster = function()
-	{
-		switch (__type)
-		{
-			case SSAVE_TYPE.ARRAY:
-				return __type_caster_default;
-			
-			case SSAVE_TYPE.BOOLEAN:
-				return bool;
-			
-			case SSAVE_TYPE.REAL:
-				return real;
-			
-			case SSAVE_TYPE.STRING:
-				return string;
-			
-			case SSAVE_TYPE.STRUCT:
-				return __type_caster_default;
-		}
-	}
-	
 	static __type_caster_default = function(_value)
 	{
 		return _value;
@@ -83,9 +53,6 @@ function __ssave_class_value(_name, _type, _defaultValue) constructor
 	__type = _type;
 	__defaultValue = _defaultValue;
 	__value = undefined;
-	
-	//__typeChecker = __get_type_checker();
-	__typeCaster = __get_type_caster();
 	
 	// Make sure the default value is actually valid
 	if (!__is_type(__defaultValue))

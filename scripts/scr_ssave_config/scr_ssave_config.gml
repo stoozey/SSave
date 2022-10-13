@@ -2,5 +2,3 @@
 
 #macro SSAVE_PROTECTION_DEFAULT SSAVE_PROTECTION.NONE			// How is the save data protected in the output file
 #macro SSAVE_ENCRYPTION_KEY 69420133769696969694204872936		// When using SSAVE_PROTECTION.ENCRYPT, this is the key used to encrypt it
-
-#macro SSAVE_AUTO_CAST_INVALID_TYPES true		// If loading a file and the type is wrong, try casting it before failing to load
