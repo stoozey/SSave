@@ -78,22 +78,23 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 			{
 				default:
 				case SSAVE_PROTECTION.NONE:
-					_data = _json;
+					_data = __ssave_string_to_buffer(_json);
 					break;
 				
 				case SSAVE_PROTECTION.ENCODE:
-					_data = base64_encode(_json);
+					var _jsonEncoded = base64_encode(_json);
+					_data = __ssave_string_to_buffer(_jsonEncoded);
 					break;
 				
 				case SSAVE_PROTECTION.ENCRYPT:
-					_data = __ssave_3rdparty_sphinx_encrypt_string(_json, SSAVE_ENCRYPTION_KEY);
+					_data = __ssave_encrypt(_json);
 					break;
 			}
 			
 			var _buffer = buffer_create(1024, buffer_grow, 1);
 			var _header = new __ssave_class_header();
 			_header.write_to_buffer(_buffer, self);
-			buffer_write(_buffer, buffer_string, _data);
+			buffer_copy(_data, 0, buffer_get_size(_data), _buffer, buffer_tell(_buffer));
 			buffer_save(_buffer, _filename);
 		
 			__ssave_print("saved file to: ", _filename);
@@ -116,30 +117,36 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 			var _header = new __ssave_class_header();
 			_header.read_from_buffer(_buffer);
 			
-			var _data;
+			var _json;
 			switch (_header.get_version())
 			{
 				default:
 				case "1.0.0":
-					_data = buffer_read(_buffer, buffer_string);
-					break;
-			}
-			
-			var _json;
-			switch (_header.get_protection())
-			{
-				default:
-				case SSAVE_PROTECTION.NONE:
-					_json = _data;
-					break;
+				{
+					var _bufferPos = buffer_tell(_buffer);
+					var _dataSize = (buffer_get_size(_buffer) - _bufferPos);
+					var _data = buffer_create(1024, buffer_grow, 1);
+					buffer_copy(_buffer, _bufferPos, _dataSize, _data, 0);
+
+					switch (_header.get_protection())
+					{
+						default:
+						case SSAVE_PROTECTION.NONE:
+							_json = buffer_read(_data, buffer_text);
+							break;
 				
-				case SSAVE_PROTECTION.ENCODE:
-					_json = base64_decode(_data);
-					break;
+						case SSAVE_PROTECTION.ENCODE:
+							var _encodedJson = buffer_read(_data, buffer_text);
+							_json = base64_decode(_encodedJson);
+							break;
 				
-				case SSAVE_PROTECTION.ENCRYPT:
-					_json = __ssave_3rdparty_sphinx_decrypt_string(_data, SSAVE_ENCRYPTION_KEY);
+						case SSAVE_PROTECTION.ENCRYPT:
+							_json = __ssave_decrypt(_data);
+							break;
+					}
+					
 					break;
+				}
 			}
 			
 			var _save = json_parse(_json);
@@ -153,6 +160,8 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 				_value.set(_jsonValue);
 			}
 		
+			__ssave_print("loaded file : ", _filename);
+			
 			delete _save;
 			return true;
 		}
