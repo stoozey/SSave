@@ -1,5 +1,6 @@
-// See scr_ssave_demo for ConfigFile/SaveFile implementation
+show_message_async("Go to \"%localappdata%\\" + game_project_name + "\" to see the files that have been saved!");
 
+// See scr_ssave_demo for ConfigFile/SaveFile implementation
 #region example ConfigFile
 
 config = new ConfigFile();
@@ -18,7 +19,8 @@ save1 = new SaveFile();
 save1.set_protection(SSAVE_PROTECTION.NONE);
 save1.load("1");
 
-save1.set("level", "69");
+save1.set("level", 69);
+save1.set("inventory", [ "sword", "tophat" ]);
 
 // 2
 save2 = new SaveFile();

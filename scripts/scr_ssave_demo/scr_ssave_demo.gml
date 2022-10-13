@@ -10,5 +10,6 @@ function SaveFile() : SSave("save") constructor
 {
 	add_value("level", SSAVE_TYPE.REAL, 1);
 	add_value("name", SSAVE_TYPE.STRING, "stoozey_");
+	add_value("inventory", SSAVE_TYPE.ARRAY, [ "sword", "helmet" ]);
 	add_value("awesome", SSAVE_TYPE.BOOLEAN, false);
 }

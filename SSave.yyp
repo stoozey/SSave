@@ -12,6 +12,7 @@
     {"id":{"name":"scr_ssave","path":"scripts/scr_ssave/scr_ssave.yy",},"order":0,},
     {"id":{"name":"__scr_ssave_util","path":"scripts/__scr_ssave_util/__scr_ssave_util.yy",},"order":2,},
     {"id":{"name":"__scr_ssave_macros","path":"scripts/__scr_ssave_macros/__scr_ssave_macros.yy",},"order":0,},
+    {"id":{"name":"spr_ssave_demo_background","path":"sprites/spr_ssave_demo_background/spr_ssave_demo_background.yy",},"order":3,},
     {"id":{"name":"rm_ssave_demo","path":"rooms/rm_ssave_demo/rm_ssave_demo.yy",},"order":0,},
     {"id":{"name":"__scr_ssave_3rdparty_sphinx","path":"scripts/__scr_ssave_3rdparty_sphinx/__scr_ssave_3rdparty_sphinx.yy",},"order":0,},
   ],
