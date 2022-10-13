@@ -86,8 +86,7 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 					break;
 				
 				case SSAVE_PROTECTION.ENCRYPT:
-					__ssave_print("encrypted");
-					_data = SphinxEncryptString(_json, SSAVE_ENCRYPTION_KEY);
+					_data = __ssave_3rdparty_sphinx_encrypt_string(_json, SSAVE_ENCRYPTION_KEY);
 					break;
 			}
 			
@@ -139,7 +138,7 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 					break;
 				
 				case SSAVE_PROTECTION.ENCRYPT:
-					_json = SphinxDecryptString(_data, SSAVE_ENCRYPTION_KEY);
+					_json = __ssave_3rdparty_sphinx_decrypt_string(_data, SSAVE_ENCRYPTION_KEY);
 					break;
 			}
 			
