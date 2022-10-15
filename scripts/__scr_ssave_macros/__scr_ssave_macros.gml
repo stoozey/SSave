@@ -16,4 +16,4 @@ enum SSAVE_PROTECTION
 }
 
 #macro __SSAVE_FILE_EXTENSION "ssave"
-#macro __SSAVE_VERSION "1.0.0"
+#macro __SSAVE_VERSION "1.0.1"
