@@ -176,9 +176,9 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 		{
 			if (buffer_exists(_buffer))
 				buffer_delete(_buffer);
-			
-			return _success;
 		}
+		
+		return _success;
 	}
 	
 	static __get_value_data = function(_name)
