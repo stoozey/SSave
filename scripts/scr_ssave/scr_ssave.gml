@@ -96,7 +96,8 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 			_header.write_to_buffer(_buffer, self);
 			buffer_copy(_data, 0, buffer_get_size(_data), _buffer, buffer_tell(_buffer));
 			buffer_save(_buffer, _filename);
-		
+			buffer_delete(_buffer);
+			
 			__ssave_print("saved file to: ", _filename);
 			return true;
 		}
@@ -109,10 +110,11 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 	
 	static __load_from_file = function(_filename)
 	{
+		if (!file_exists(_filename)) return false;
+		
+		var _success;
 		try
 		{
-			if (!file_exists(_filename)) return false;
-			
 			var _buffer = buffer_load(_filename);
 			var _header = new __ssave_class_header();
 			_header.read_from_buffer(_buffer);
@@ -163,12 +165,19 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 			__ssave_print("loaded file : ", _filename);
 			
 			delete _save;
-			return true;
+			_success = true;
 		}
 		catch (_e)
 		{
 			__ssave_print("error loading file \"", _filename, "\" | ", _e.message);
-			return false;
+			_success = false;
+		}
+		finally
+		{
+			if (buffer_exists(_buffer))
+				buffer_delete(_buffer);
+			
+			return _success;
 		}
 	}
 	
