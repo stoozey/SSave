@@ -11,6 +11,16 @@ function __ssave_print()
     return show_debug_message(_string);
 }
 
+function __ssave_get_save_directory()
+{
+	if (SSAVE_DIRECTORY == "") return SSAVE_DIRECTORY;
+	
+	var _lastChar = string_char_at(SSAVE_DIRECTORY, string_length(SSAVE_DIRECTORY));
+	if ((_lastChar == "/") || (_lastChar == "\\")) return SSAVE_DIRECTORY;
+	
+	return (SSAVE_DIRECTORY + "/");
+}
+
 function __ssave_string_to_buffer(_string)
 {
 	var _buffer = buffer_create(string_byte_length(_string), buffer_fixed, 1);

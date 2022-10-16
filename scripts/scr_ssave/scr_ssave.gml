@@ -197,7 +197,7 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 	
 	static __get_filename = function(_prefix = "")
 	{
-		return (SSAVE_DIRECTORY + _prefix + __name + "." + __SSAVE_FILE_EXTENSION);
+		return (__ssave_get_save_directory() + _prefix + __name + "." + __SSAVE_FILE_EXTENSION);
 	}
 	
 	static __generate_output_struct = function()
