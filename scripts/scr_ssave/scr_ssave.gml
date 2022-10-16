@@ -17,6 +17,7 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 	///@desc Updates a value in the ssave
 	///@param {string} name The name of the value
 	///@param {any} value The value to be set
+	///@returns {SSave} Returns self for chaining
 	static set = function(_name, _value)
 	{
 		var _valueData = __get_value_data(_name);
@@ -24,6 +25,7 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 			return __throw_name_doesnt_exist(_name);
 		
 		_valueData.set(_value);
+		return self;
 	}
 	
 	///@desc Adds a new value to the ssave (This is intended to be called inside the constructor, see the demo for example)
@@ -60,9 +62,11 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 	
 	///@desc Updates the current SSAVE_PROTECTION type
 	///@param {SSAVE_PROTECTION} protection The new SSAVE_PROTECTION type
+	///@returns {SSave} Returns self for chaining
 	static set_protection = function(_protection)
 	{
 		__protection = _protection;
+		return self;
 	}
 	
 	#region internal

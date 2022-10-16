@@ -19,8 +19,9 @@ config.save();
 save1 = new SaveFile();
 save1.load("1");
 
-save1.set("level", 69);
-save1.set("inventory", [ "sword", "tophat" ]);
+save1 // supports chaining
+	.set("level", 69)
+	.set("inventory", [ "sword", "tophat" ]);
 
 // 2
 save2 = new SaveFile();
@@ -38,13 +39,16 @@ save3.set("awesome", true);
 	
 #region example of SSAVE_PROTECTION
 	
-save1.set_protection(SSAVE_PROTECTION.NONE);
-save1.save("1");
+save1
+	.set_protection(SSAVE_PROTECTION.NONE)
+	.save("1");
 	
-save2.set_protection(SSAVE_PROTECTION.ENCODE);
-save2.save("2");
+save2
+	.set_protection(SSAVE_PROTECTION.ENCODE)
+	.save("2");
 	
-save3.set_protection(SSAVE_PROTECTION.ENCRYPT);
-save3.save("3");
+save3
+	.set_protection(SSAVE_PROTECTION.ENCRYPT)
+	.save("3");
 	
 #endregion
