@@ -19,4 +19,4 @@ SSave tackles these problems whilst also having quality-of-life features that ma
 - You can create multiple versions of a save file type (a common use case for this is having multiple slots of save files)
 - Old saves automatically sync with any new data you add to your project that wasn't originally in the save file.
     You can be 100% sure that a value in your save file is ALWAYS there, even if removed from the file
-- Don't want users to tamper with your files? You can both ecode or encrypt your files. This information is stored in the file header and handled internally, so you can load a protected file without needing to do any extra work
+- Don't want users to tamper with your files? You can both ecode or encrypt your files. This information is handled internally, so you can load a protected file without needing to do any extra work
