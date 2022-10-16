@@ -55,6 +55,7 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 	}
 	
 	///@desc Returns the current SSAVE_PROTECTION type
+	///@returns {SSAVE_PROTECTION} Current SSAVE_PROTECTION type
 	static get_protection = function()
 	{
 		return __protection;
@@ -131,7 +132,7 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 				{
 					var _bufferPos = buffer_tell(_buffer);
 					var _dataSize = (buffer_get_size(_buffer) - _bufferPos);
-					var _data = buffer_create(1024, buffer_grow, 1);
+					var _data = buffer_create(_dataSize, buffer_fixed, 1);
 					buffer_copy(_buffer, _bufferPos, _dataSize, _data, 0);
 
 					switch (_header.get_protection())
