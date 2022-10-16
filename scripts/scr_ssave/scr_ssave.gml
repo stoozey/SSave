@@ -74,11 +74,11 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 	
 	static __save_to_file = function(_filename)
 	{
+		var _buffer, _data;
 		try
 		{
 			var _save = __generate_output_struct();
 			var _json = json_stringify(_save);
-			var _data;
 			switch (__protection)
 			{
 				default:
@@ -98,15 +98,12 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 			
 			var _dataSize = buffer_get_size(_data);
 			var _bufferSize = (__SSAVE_HEADER_SIZE + _dataSize);
-			var _buffer = buffer_create(_bufferSize, buffer_fixed, 1);
+			_buffer = buffer_create(_bufferSize, buffer_fixed, 1);
 			var _header = new __ssave_class_header();
 			_header.write_to_buffer(_buffer, self);
 			buffer_copy(_data, 0, _dataSize, _buffer, buffer_tell(_buffer));
 			buffer_save(_buffer, _filename);
-			
-			buffer_delete(_data);
-			buffer_delete(_buffer);
-			
+	
 			__ssave_print("saved file to: ", _filename);
 			return true;
 		}
@@ -114,6 +111,14 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 		{
 			__ssave_print("error saving file \"", _filename, "\" | ", _e.message);
 			return false;
+		}
+		finally
+		{
+			if (buffer_exists(_buffer))
+				buffer_delete(_buffer);
+			
+			if (buffer_exists(_data))
+				buffer_delete(_data);
 		}
 	}
 	
