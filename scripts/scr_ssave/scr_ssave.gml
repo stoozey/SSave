@@ -96,11 +96,15 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 					break;
 			}
 			
-			var _buffer = buffer_create(1024, buffer_grow, 1);
+			var _dataSize = buffer_get_size(_data);
+			var _bufferSize = (__SSAVE_HEADER_SIZE + _dataSize);
+			var _buffer = buffer_create(_bufferSize, buffer_fixed, 1);
 			var _header = new __ssave_class_header();
 			_header.write_to_buffer(_buffer, self);
-			buffer_copy(_data, 0, buffer_get_size(_data), _buffer, buffer_tell(_buffer));
+			buffer_copy(_data, 0, _dataSize, _buffer, buffer_tell(_buffer));
 			buffer_save(_buffer, _filename);
+			
+			buffer_delete(_data);
 			buffer_delete(_buffer);
 			
 			__ssave_print("saved file to: ", _filename);
