@@ -121,10 +121,10 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 	{
 		if (!file_exists(_filename)) return false;
 		
-		var _success;
+		var _success, _buffer, _data;
 		try
 		{
-			var _buffer = buffer_load(_filename);
+			_buffer = buffer_load(_filename);
 			var _header = new __ssave_class_header();
 			_header.read_from_buffer(_buffer);
 			
@@ -136,7 +136,7 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 				{
 					var _bufferPos = buffer_tell(_buffer);
 					var _dataSize = (buffer_get_size(_buffer) - _bufferPos);
-					var _data = buffer_create(_dataSize, buffer_fixed, 1);
+					_data = buffer_create(_dataSize, buffer_fixed, 1);
 					buffer_copy(_buffer, _bufferPos, _dataSize, _data, 0);
 
 					switch (_header.get_protection())
@@ -170,7 +170,7 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 				var _jsonValue = _save[$ _varName];
 				_value.set(_jsonValue);
 			}
-		
+			
 			__ssave_print("loaded file : ", _filename);
 			
 			delete _save;
@@ -185,6 +185,9 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 		{
 			if (buffer_exists(_buffer))
 				buffer_delete(_buffer);
+			
+			if (buffer_exists(_data))
+				buffer_delete(_data);
 		}
 		
 		return _success;
