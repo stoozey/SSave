@@ -74,7 +74,7 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 	
 	static __save_to_file = function(_filename)
 	{
-		var _buffer, _data;
+		var _success, _buffer, _data;
 		try
 		{
 			var _save = __generate_output_struct();
@@ -105,12 +105,12 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 			buffer_save(_buffer, _filename);
 	
 			__ssave_print("saved file to: ", _filename);
-			return true;
+			_success = true;
 		}
 		catch (_e)
 		{
 			__ssave_print("error saving file \"", _filename, "\" | ", _e.message);
-			return false;
+			_success = false;
 		}
 		finally
 		{
@@ -120,6 +120,8 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 			if (buffer_exists(_data))
 				buffer_delete(_data);
 		}
+		
+		return _success;
 	}
 	
 	static __load_from_file = function(_filename)
