@@ -5,7 +5,7 @@ enum SSAVE_TYPE
 	BOOLEAN,
 	STRUCT,
 	ARRAY,
-	BUFFER,
+	//BUFFER, // Should be supported by v1.2.0
 }
 
 enum SSAVE_PROTECTION
@@ -16,4 +16,4 @@ enum SSAVE_PROTECTION
 }
 
 #macro __SSAVE_FILE_EXTENSION "ssave"
-#macro __SSAVE_VERSION "1.1.1"
+#macro __SSAVE_VERSION "1.1.2"
