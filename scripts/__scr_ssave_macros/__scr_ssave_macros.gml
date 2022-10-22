@@ -5,7 +5,7 @@ enum SSAVE_TYPE
 	BOOLEAN,
 	STRUCT,
 	ARRAY,
-	BUFFER,
+	BUFFER, // When using save.set() with a buffer, the supplied buffer is COPIED so you can delete the original bufer when youre done
 }
 
 enum SSAVE_PROTECTION
@@ -16,4 +16,4 @@ enum SSAVE_PROTECTION
 }
 
 #macro __SSAVE_FILE_EXTENSION "ssave"
-#macro __SSAVE_VERSION "1.1.1"
+#macro __SSAVE_VERSION "1.2.0"

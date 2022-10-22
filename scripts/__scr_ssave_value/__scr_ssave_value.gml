@@ -15,9 +15,24 @@ function __ssave_class_value(_name, _type, _defaultValue) constructor
 			case SSAVE_TYPE.BOOLEAN:
 				_value = (_value >= 1);
 				break;
+			
+			case SSAVE_TYPE.BUFFER:
+				if ((__value != undefined) && (buffer_exists(__value)))
+					buffer_delete(__value);
+					
+				var _bufferSize = buffer_get_size(_value);
+				var _buffer = buffer_create(_bufferSize, buffer_fixed, 1);
+				buffer_copy(_value, 0, _bufferSize, _buffer, 0);
+				_value = _buffer;
+				break;
 		}
 		
 		__value = _value;
+	}
+	
+	static get_type = function()
+	{
+		return __type;
 	}
 	
 	static __is_type = function(_value)
@@ -41,12 +56,11 @@ function __ssave_class_value(_name, _type, _defaultValue) constructor
 			
 			case SSAVE_TYPE.STRUCT:
 				return is_struct(_value);
+			
+			case SSAVE_TYPE.BUFFER:
+				__ssave_print(_value, " | ", buffer_exists(_value));
+				return buffer_exists(_value);
 		}
-	}
-	
-	static __type_caster_default = function(_value)
-	{
-		return _value;
 	}
 	
 	__name = _name;

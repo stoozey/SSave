@@ -1,6 +1,6 @@
 /*
 
-Sphinx by JuJu Adams
+Sphinx by Juju Adams
 https://github.com/JujuAdams/Sphinx
 
 Version 1.0.0 - 2021-06-08
