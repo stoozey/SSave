@@ -58,7 +58,6 @@ function __ssave_class_value(_name, _type, _defaultValue) constructor
 				return is_struct(_value);
 			
 			case SSAVE_TYPE.BUFFER:
-				__ssave_print(_value, " | ", buffer_exists(_value));
 				return buffer_exists(_value);
 		}
 	}
