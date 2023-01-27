@@ -19,11 +19,16 @@ function __ssave_class_value(_name, _type, _defaultValue) constructor
 			case SSAVE_TYPE.BUFFER:
 				if ((__value != undefined) && (buffer_exists(__value)))
 					buffer_delete(__value);
-					
-				var _bufferSize = buffer_get_size(_value);
-				var _buffer = buffer_create(_bufferSize, buffer_fixed, 1);
-				buffer_copy(_value, 0, _bufferSize, _buffer, 0);
-				_value = _buffer;
+				
+				if (SSAVE_COPY_BUFFER_ON_SET)
+				{
+					var _bufferSize = buffer_get_size(_value);
+					var _buffer = buffer_create(_bufferSize, buffer_fixed, 1);
+					buffer_copy(_value, 0, _bufferSize, _buffer, 0);
+					buffer_seek(_value, buffer_seek_start, 0);
+					_value = _buffer;
+				}
+				
 				break;
 		}
 		
