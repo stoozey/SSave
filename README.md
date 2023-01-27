@@ -20,3 +20,4 @@ SSave tackles these problems whilst also having quality-of-life features that ma
 - Old saves automatically sync with any new data you add to your project that wasn't originally in the save file.
     You can be 100% sure that a value in your save file is ALWAYS there, even if removed from the file
 - Don't want users to tamper with your files? You can both encode or encrypt your files. This information is handled internally, so you can load a protected file without needing to do any extra work
+- Buffers are a supported value type! 
