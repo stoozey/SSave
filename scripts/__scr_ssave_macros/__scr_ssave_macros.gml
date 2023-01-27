@@ -5,14 +5,14 @@ enum SSAVE_TYPE
 	BOOLEAN,
 	STRUCT,
 	ARRAY,
-	BUFFER, // When using save.set() with a buffer, the supplied buffer is COPIED so you can delete the original bufer when youre done
+	BUFFER,
 }
 
 enum SSAVE_PROTECTION
 {
 	NONE,		// Save data is stored in plaintext json - good if you don't care about tampering
 	ENCODE,		// Save data is stored in base64 encoded json - good if you want *most* players to not know how to tamper
-	ENCRYPT,	// Save data is encrypted with a key - good if you want *most* players to be unable to tamper. this is NOT secure enough for sensitive data
+	ENCRYPT,	// Save data is encrypted with a key - good if you want *most* players to be unable to tamper. This is NOT secure enough for sensitive data
 }
 
 #macro __SSAVE_FILE_EXTENSION "ssave"
