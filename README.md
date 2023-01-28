@@ -5,7 +5,7 @@
   </div>
   <div align="center">
    A simple save file system for GameMaker
-   <p>Available for download <a href="https://stoozey.itch.io/ssave"> on Itch.io</a>.</p>
+   <p>Available for download on <a href="https://stoozey.itch.io/ssave">Itch.io</a> and <a href="https://marketplace.yoyogames.com/assets/11246">GameMaker Marketplace</a>.</p>
    </div>
 </p>
 
