@@ -74,7 +74,7 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 	
 	static __save_to_file = function(_filename)
 	{
-		var _success, _buffer, _data;
+		var _success, _buffer = undefined, _data = undefined;
 		try
 		{
 			var _save = __generate_output_struct();
@@ -114,10 +114,10 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 		}
 		finally
 		{
-			if (buffer_exists(_buffer))
+			if ((_buffer != undefined) && (buffer_exists(_buffer)))
 				buffer_delete(_buffer);
 			
-			if (buffer_exists(_data))
+			if ((_data != undefined) && (buffer_exists(_data)))
 				buffer_delete(_data);
 		}
 		
@@ -128,7 +128,7 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 	{
 		if (!file_exists(_filename)) return false;
 		
-		var _success, _buffer, _data;
+		var _success, _buffer = undefined, _data = undefined;
 		try
 		{
 			_buffer = buffer_load(_filename);
@@ -139,6 +139,9 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 			switch (_header.get_version())
 			{
 				default:
+				case "1.2.0":
+				case "1.1.1":
+				case "1.0.1":
 				case "1.0.0":
 				{
 					var _bufferPos = buffer_tell(_buffer);
@@ -168,14 +171,16 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 			}
 			
 			var _save = json_parse(_json);
+			__decode_output_struct(_save);
+			
 			var _varNames = variable_struct_get_names(_save);
 			var i = 0;
 			repeat (array_length(_varNames))
 			{
 				var _varName = _varNames[i++];
-				var _value = __values[$ _varName];
-				var _jsonValue = _save[$ _varName];
-				_value.set(_jsonValue);
+				var _valueData = __values[$ _varName];
+				var _value = _save[$ _varName];
+				_valueData.set(_value);
 			}
 			
 			__ssave_print("loaded file : ", _filename);
@@ -190,10 +195,10 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 		}
 		finally
 		{
-			if (buffer_exists(_buffer))
+			if ((_buffer != undefined) && (buffer_exists(_buffer)))
 				buffer_delete(_buffer);
 			
-			if (buffer_exists(_data))
+			if ((_data != undefined) && (buffer_exists(_data)))
 				buffer_delete(_data);
 		}
 		
@@ -217,11 +222,52 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 		var i = 0;
 		repeat (array_length(_names))
 		{
+			var _value;
 			var _name = _names[i++];
-			_save[$ _name] = get(_name);
+			var _valueData = __get_value_data(_name);
+			switch (_valueData.get_type())
+			{
+				default:
+					_value = _valueData.get();
+					break;
+				
+				case SSAVE_TYPE.BUFFER:
+					var _buffer = _valueData.get();
+					var _bufferSize = buffer_get_size(_buffer);
+					_value = buffer_base64_encode(_buffer, 0, _bufferSize);
+					break;
+			}
+			
+			_save[$ _name] = _value;
 		}
 		
 		return _save;
+	}
+	
+	static __decode_output_struct = function(_save)
+	{
+		var i = 0;
+		var _names = variable_struct_get_names(_save);
+		repeat (array_length(_names))
+		{
+			var _override = undefined;
+			var _name = _names[i++];
+			var _valueData = __get_value_data(_name);
+			var _value = _save[$ _name];
+			switch (_valueData.get_type())
+			{
+				default:
+					break;
+				
+				case SSAVE_TYPE.BUFFER:
+					_override = buffer_base64_decode(_value);
+					__ssave_print("buffer size is ", buffer_get_size(_override));
+					break;
+			}
+			
+			if (_override != undefined)
+				_save[$ _name] = _override;
+		}
 	}
 	
 	static __throw_name_doesnt_exist = function(_name)

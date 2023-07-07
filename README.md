@@ -5,7 +5,7 @@
   </div>
   <div align="center">
    A simple save file system for GameMaker
-   <p>Available for download <a href="https://stoozey.itch.io/ssave"> on Itch.io</a>.</p>
+   <p>Available for download on <a href="https://stoozey.itch.io/ssave">Itch.io</a> and <a href="https://marketplace.yoyogames.com/assets/11246">GameMaker Marketplace</a>.</p>
    </div>
 </p>
 
@@ -20,3 +20,4 @@ SSave tackles these problems whilst also having quality-of-life features that ma
 - Old saves automatically sync with any new data you add to your project that wasn't originally in the save file.
     You can be 100% sure that a value in your save file is ALWAYS there, even if removed from the file
 - Don't want users to tamper with your files? You can both encode or encrypt your files. This information is handled internally, so you can load a protected file without needing to do any extra work
+- Buffers are a supported value type! 
