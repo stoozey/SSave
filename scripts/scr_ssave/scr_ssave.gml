@@ -38,19 +38,21 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 		__values[$ _name] = _value;
 	}
 	
-	///@desc Saves the ssave to file
-	///@param {any} [filePrefix] A prefix to the filename (useful for storing multiple of the same type of SSave, see the demo for example)
-	static save = function(_filePrefix = "")
+	///@desc Saves the ssave
+	static save = function()
 	{
-		var _filename = __get_filename(_filePrefix);
+		var _filename = __get_filename(__filePrefix);
 		return __save_to_file(_filename);
 	}
 	
-	///@desc Loads the ssave from a file
-	///@param {any} [filePrefix] The prefix of the filename (useful for storing multiple of the same type of SSave, see the demo for example)
-	static load = function(_filePrefix = "")
+	///@desc Loads the ssave
+	///@param {any|undefined} [filePrefix] When not undefined, set_file_prefix is called with this as its argument
+	static load = function(_filePrefix = undefined)
 	{
-		var _filename = __get_filename(_filePrefix);
+		if (_filePrefix != undefined)
+			set_file_prefix(_filePrefix);
+		
+		var _filename = __get_filename(__filePrefix);
 		return __load_from_file(_filename);
 	}
 	
@@ -68,6 +70,13 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 	{
 		__protection = _protection;
 		return self;
+	}
+	
+	///@desc Sets the prefix of the filename (useful for storing multiple of the same type of SSave, see the demo for example)
+	///@param {any} [filePrefix] The prefix
+	static set_file_prefix = function(_filePrefix)
+	{
+		__filePrefix = string(_filePrefix);
 	}
 	
 	#region internal
@@ -279,6 +288,7 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 	__protection = _protection;
 	
 	__values = { };
+	__filePrefix = SSAVE_FILE_PREFIX_DEFAULT;
 	
 	#endregion
 }

@@ -41,14 +41,14 @@ save3.set("awesome", true);
 	
 save1
 	.set_protection(SSAVE_PROTECTION.NONE)
-	.save("1");
+	.save();
 	
 save2
 	.set_protection(SSAVE_PROTECTION.ENCODE)
-	.save("2");
+	.save();
 	
 save3
 	.set_protection(SSAVE_PROTECTION.ENCRYPT)
-	.save("3");
+	.save();
 	
 #endregion
