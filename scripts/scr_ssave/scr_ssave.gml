@@ -74,9 +74,24 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 	
 	///@desc Sets the prefix of the filename (useful for storing multiple of the same type of SSave, see the demo for example)
 	///@param {any} [filePrefix] The prefix
+	///@returns {SSave} Returns self for chaining
 	static set_file_prefix = function(_filePrefix)
 	{
 		__filePrefix = string(_filePrefix);
+	}
+	
+	///@desc Gets the current file prefix
+	///@returns {string} The file prefix
+	static get_file_prefix = function(_filePrefix)
+	{
+		return __filePrefix;
+	}
+	
+	///@desc Gets the file prefix + ssave name
+	///@returns {string} The full name
+	static get_full_name = function()
+	{
+		return (__filePrefix + __name);
 	}
 	
 	#region internal
@@ -221,7 +236,7 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 	
 	static __get_filename = function(_prefix = "")
 	{
-		return (__ssave_get_save_directory() + string(_prefix) + __name + "." + __SSAVE_FILE_EXTENSION);
+		return (__ssave_get_save_directory() + get_full_name() + "." + __SSAVE_FILE_EXTENSION);
 	}
 	
 	static __generate_output_struct = function()

@@ -6,3 +6,5 @@
 #macro SSAVE_COPY_BUFFER_ON_SET true	// When using SSave.set() with a buffer, the supplied buffer is copied (so you can delete your original)
 
 #macro SSAVE_FILE_PREFIX_DEFAULT ""	// When no file prefix is supplied, this is used by default
+
+#macro SSAVE_USE_MANAGER true	// Whether or not the SSaveManager is used (disable this if you want to manage your saves yourself via some sort of persistent object or script)

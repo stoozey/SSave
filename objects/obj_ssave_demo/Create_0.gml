@@ -1,54 +1,5 @@
-show_message_async("Go to \"%localappdata%\\" + game_project_name + "\" to see the files that have been saved!");
-
 // See scr_ssave_demo for ConfigFile/SaveFile implementation
 
-#region example ConfigFile
+show_message_async("Go to \"%localappdata%\\" + game_project_name + "\" to see the files that have been saved!");
 
-config = new ConfigFile();
-config.load();
-
-config.set("subtitles", false);
-
-config.save();
-
-#endregion
-
-#region example SaveFile - multiple of the same SSave
-
-// 1
-save1 = new SaveFile();
-save1.load("1");
-
-save1 // supports chaining
-	.set("level", 69)
-	.set("inventory", [ "sword", "tophat" ]);
-
-// 2
-save2 = new SaveFile();
-save2.load("2");
-
-save2.set("name", "stoobert stoozington the third");
-
-// 3
-save3 = new SaveFile();
-save3.load("3");
-
-save3.set("awesome", true);
-
-#endregion
-	
-#region example of SSAVE_PROTECTION
-	
-save1
-	.set_protection(SSAVE_PROTECTION.NONE)
-	.save();
-	
-save2
-	.set_protection(SSAVE_PROTECTION.ENCODE)
-	.save();
-	
-save3
-	.set_protection(SSAVE_PROTECTION.ENCRYPT)
-	.save();
-	
-#endregion
+instance_create_depth(0, 0, 0, ((SSAVE_USE_MANAGER) ? obj_ssave_demo_manager : obj_ssave_demo_no_manager))
