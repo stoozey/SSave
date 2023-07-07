@@ -14,6 +14,7 @@ SSave tackles these problems whilst also having quality-of-life features that ma
 
 ### ***Why use SSave?***
 
+- Comes with a built-in manager so you don't have to create a system to track everything yourself (this can be disabled if you really want to!)
 - Values are typed to prevent game-breaking issues occurring from wrongly typed saved data
 - You can create any number of save file types (like a config file, separate from your save file)
 - You can create multiple versions of a save file type (a common use case for this is having multiple slots of save files)
