@@ -9,7 +9,7 @@ ssave_get(ConfigFile)
 #region example SaveFile - multiple of the same SSave
 
 // 1
-ssave_get(SaveFile, "1")  // supports chaining
+ssave_get(SaveFile, "1")
 	.set("level", 69)
 	.set("inventory", [ "sword", "helmet" ]);
 
