@@ -1,9 +1,8 @@
 #region example ConfigFile
 
 ssave_get(ConfigFile)
-	.set("subtitles", false)
-	.save();
-
+	.set("subtitles", false);
+	
 #endregion
 
 #region example SaveFile - multiple of the same SSave
