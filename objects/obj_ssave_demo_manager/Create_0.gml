@@ -1,9 +1,8 @@
 #region example ConfigFile
 
 ssave_get(ConfigFile)
-	.set("subtitles", false)
-	.save();
-
+	.set("subtitles", false);
+	
 #endregion
 
 #region example SaveFile - multiple of the same SSave
@@ -26,15 +25,14 @@ ssave_get(SaveFile, "3")
 #region example of SSAVE_PROTECTION
 	
 ssave_get(SaveFile, "1")
-	.set_protection(SSAVE_PROTECTION.NONE)
-	.save();
+	.set_protection(SSAVE_PROTECTION.NONE);
 	
 ssave_get(SaveFile, "2")
-	.set_protection(SSAVE_PROTECTION.ENCODE)
-	.save();
+	.set_protection(SSAVE_PROTECTION.ENCODE);
 	
 ssave_get(SaveFile, "3")
-	.set_protection(SSAVE_PROTECTION.ENCRYPT)
-	.save();
+	.set_protection(SSAVE_PROTECTION.ENCRYPT);
 	
 #endregion
+
+ssave_save_all();

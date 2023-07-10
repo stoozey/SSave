@@ -2,6 +2,8 @@ if (SSAVE_USE_MANAGER)
 	global.__ssave_manager = new SSaveManager();
 
 ///@desc Wrapper for SSaveManager.get
+///@param {SSave} ssaveConstructor The constructor for the ssave file
+///@param {string|undefined} filePrefix The file prefix (SSAVE_FILE_PREFIX_DEFAULT if undefined)
 ///@returns {SSave}
 function ssave_get(_ssaveConstructor, _filePrefix = undefined)
 {
@@ -12,12 +14,36 @@ function ssave_get(_ssaveConstructor, _filePrefix = undefined)
 }
 
 ///@desc Wrapper for SSaveManager.remove
+///@param {SSave} ssaveConstructor The constructor for the ssave file
+///@param {string|undefined} filePrefix The file prefix (SSAVE_FILE_PREFIX_DEFAULT if undefined)
 function ssave_remove(_ssaveConstructor, _filePrefix = undefined)
 {
 	if (!SSAVE_USE_MANAGER)
 		throw ("SSave config value \"SSAVE_USE_MANAGER\" is false");
 	
 	return global.__ssave_manager.remove(_ssaveConstructor, _filePrefix);
+}
+
+///@desc Calls ssave.save() on all SSaveManager ssaves
+function ssave_save_all()
+{
+	with (global.__ssave_manager)
+	{
+		var i = 0;
+		var _ssaveConstructors = variable_struct_get_names(__ssaves);
+		repeat (array_length(_ssaveConstructors))
+		{
+			var _ssaveConstructor = _ssaveConstructors[i++];
+			var _ssaves = __ssaves[$ _ssaveConstructor];
+			
+			var j = 0;
+			repeat (ds_list_size(_ssaves))
+			{
+				var _ssave = _ssaves[| j++];
+				_ssave.save();
+			}
+		}
+	}
 }
 
 function SSaveManager() constructor

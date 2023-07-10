@@ -41,7 +41,7 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 	///@desc Saves the ssave
 	static save = function()
 	{
-		var _filename = __get_filename(__filePrefix);
+		var _filename = __get_filename();
 		return __save_to_file(_filename);
 	}
 	
@@ -52,7 +52,7 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 		if (_filePrefix != undefined)
 			set_file_prefix(_filePrefix);
 		
-		var _filename = __get_filename(__filePrefix);
+		var _filename = __get_filename();
 		return __load_from_file(_filename);
 	}
 	
@@ -82,7 +82,7 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 	
 	///@desc Gets the current file prefix
 	///@returns {string} The file prefix
-	static get_file_prefix = function(_filePrefix)
+	static get_file_prefix = function()
 	{
 		return __filePrefix;
 	}
@@ -163,6 +163,7 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 			switch (_header.get_version())
 			{
 				default:
+				case "1.3.1":
 				case "1.3.0":
 				case "1.2.0":
 				case "1.1.1":
@@ -235,7 +236,7 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 		return __values[$ _name];
 	}
 	
-	static __get_filename = function(_prefix = "")
+	static __get_filename = function()
 	{
 		return (__ssave_get_save_directory() + get_full_name() + "." + __SSAVE_FILE_EXTENSION);
 	}
