@@ -24,26 +24,47 @@ function ssave_remove(_ssaveConstructor, _filePrefix = undefined)
 	return global.__ssave_manager.remove(_ssaveConstructor, _filePrefix);
 }
 
-///@desc Calls ssave.save() on all SSaveManager ssaves
-function ssave_save_all()
+///@desc Gets all ssaves being managed by SSaveManager
+///@param {SSave|undefined} ssaveConstructor The constructor for the ssave file to get all of. Returns *all* ssaves, independant of the constructor, if this is undefined
+///@returns {SSave[]} Array of ssaves
+function ssave_get_all(_ssaveConstructor = undefined)
 {
+	if (!SSAVE_USE_MANAGER)
+		throw ("SSave config value \"SSAVE_USE_MANAGER\" is false");
+	
+	var _ssavesList = ds_list_create();
 	with (global.__ssave_manager)
 	{
 		var i = 0;
-		var _ssaveConstructors = variable_struct_get_names(__ssaves);
+		var _ssaveConstructors = ((_ssaveConstructor == undefined) ? variable_struct_get_names(__ssaves) : [ _ssaveConstructor ]);
 		repeat (array_length(_ssaveConstructors))
 		{
-			var _ssaveConstructor = _ssaveConstructors[i++];
-			var _ssaves = __ssaves[$ _ssaveConstructor];
+			var _constructorName = _ssaveConstructors[i++];
+			var _ssaves = __ssaves[$ _constructorName];
 			
 			var j = 0;
 			repeat (ds_list_size(_ssaves))
 			{
 				var _ssave = _ssaves[| j++];
-				_ssave.save();
+				ds_list_add(_ssavesList, _ssave);
 			}
 		}
 	}
+	
+	return __ssave_ds_list_to_array(_ssavesList);
+}
+
+///@desc Calls ssave.save() on all SSaveManager ssaves
+///@param {SSave|undefined} ssaveConstructor The constructor for the ssave file type to save. Saves *all* ssaves, independant of the constructor, if this is undefined
+function ssave_save_all(_ssaveConstructor = undefined)
+{
+	if (!SSAVE_USE_MANAGER)
+		throw ("SSave config value \"SSAVE_USE_MANAGER\" is false");
+	
+	var _ssaves = ssave_get_all(_ssaveConstructor);
+	var i = 0;
+	repeat (array_length(_ssaves))
+		_ssaves[i++].save();
 }
 
 function SSaveManager() constructor
