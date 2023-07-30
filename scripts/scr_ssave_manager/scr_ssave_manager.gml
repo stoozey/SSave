@@ -170,7 +170,7 @@ function SSaveManager() constructor
 	
 	static __deregister_by_index = function(_index, _ssaveConstructor)
 	{
-		var _ssaves = __get_ssaves(_ssaveConstructor, _ssaveConstructor);
+		var _ssaves = __get_ssaves(_ssaveConstructor);
 		if ((_index < 0) || (_index >= ds_list_size(_ssaves))) return;
 		
 		var _ssave = _ssaves[| _index];
