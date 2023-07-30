@@ -165,7 +165,7 @@ function SSaveManager() constructor
 		var _index = __find_index(_ssave, _ssaveConstructor);
 		if (_index == -1) return;
 		
-		deregister_by_index(_index);
+		__deregister_by_index(_index);
 	}
 	
 	static __deregister_by_index = function(_index, _ssaveConstructor)
