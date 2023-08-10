@@ -163,6 +163,7 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 			switch (_header.get_version())
 			{
 				default:
+				case "1.4.0": // im beginning to think i overengineered this
 				case "1.3.3":
 				case "1.3.2":
 				case "1.3.1":
