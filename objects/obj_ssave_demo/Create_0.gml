@@ -1,5 +1,16 @@
-// See scr_ssave_demo for ConfigFile/SaveFile implementation
+Save = function()
+{
+	with (obj_ssave_demo_player)
+	{
+		static config = ssave_get(ConfigFile);
+		
+		ssave_get(SaveFile, config.get("saveIndex"))
+        .set("x", x)
+        .set("y", y)
+        .set("name", name)
+		.set("playtime", playtime)
+		.save();
+	}
+}
 
-show_message_async("Go to \"%localappdata%\\" + game_project_name + "\" to see the files that have been saved!");
-
-instance_create_depth(0, 0, 0, ((SSAVE_USE_MANAGER) ? obj_ssave_demo_manager : obj_ssave_demo_no_manager))
+instance_create_depth(0, 0, 0, obj_ssave_demo_player);

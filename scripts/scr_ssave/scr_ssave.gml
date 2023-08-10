@@ -1,6 +1,6 @@
 ///@desc The base constructor for the SSave file (this should be inherited from a new class - e.g "SaveFile() : SSave() constructor")
-///@param {string} [name The name of the file that gets saved
-///@param {SSAVE_PROTECTION} protection] The amount of protection that the data receives
+///@param {string} [name] The name of the file that gets saved
+///@param {SSAVE_PROTECTION} [protection] The amount of protection that the data receives
 function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) constructor
 {
 	///@desc Gets a value in the ssave
@@ -46,7 +46,7 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 	}
 	
 	///@desc Loads the ssave
-	///@param {any|undefined} [filePrefix] When not undefined, set_file_prefix is called with this as its argument
+	///@param {any} [filePrefix] When not undefined, set_file_prefix is called with this as its argument
 	static load = function(_filePrefix = undefined)
 	{
 		if (_filePrefix != undefined)
