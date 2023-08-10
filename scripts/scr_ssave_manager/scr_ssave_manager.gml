@@ -2,8 +2,8 @@ if (SSAVE_USE_MANAGER)
 	global.__ssave_manager = new SSaveManager();
 
 ///@desc Wrapper for SSaveManager.get
-///@param {SSave} ssaveConstructor The constructor for the ssave file
-///@param {string|undefined} filePrefix The file prefix (SSAVE_FILE_PREFIX_DEFAULT if undefined)
+///@param {function} ssaveConstructor The constructor for the ssave file
+///@param {string} [filePrefix] The file prefix (SSAVE_FILE_PREFIX_DEFAULT if undefined)
 ///@returns {SSave}
 function ssave_get(_ssaveConstructor, _filePrefix = undefined)
 {
@@ -14,8 +14,8 @@ function ssave_get(_ssaveConstructor, _filePrefix = undefined)
 }
 
 ///@desc Wrapper for SSaveManager.remove
-///@param {SSave} ssaveConstructor The constructor for the ssave file
-///@param {string|undefined} filePrefix The file prefix (SSAVE_FILE_PREFIX_DEFAULT if undefined)
+///@param {function} ssaveConstructor The constructor for the ssave file
+///@param {string} [filePrefix] The file prefix (SSAVE_FILE_PREFIX_DEFAULT if undefined)
 function ssave_remove(_ssaveConstructor, _filePrefix = undefined)
 {
 	if (!SSAVE_USE_MANAGER)
@@ -25,8 +25,8 @@ function ssave_remove(_ssaveConstructor, _filePrefix = undefined)
 }
 
 ///@desc Gets all ssaves being managed by SSaveManager
-///@param {SSave|undefined} ssaveConstructor The constructor for the ssave file to get all of. Returns *all* ssaves, independant of the constructor, if this is undefined
-///@returns {SSave[]} Array of ssaves
+///@param {function} [ssaveConstructor] The constructor for the ssave file to get all of. Returns *all* ssaves, independant of the constructor, if this is undefined
+///@returns {Array<SSave>} Array of ssaves
 function ssave_get_all(_ssaveConstructor = undefined)
 {
 	if (!SSAVE_USE_MANAGER)
@@ -55,7 +55,7 @@ function ssave_get_all(_ssaveConstructor = undefined)
 }
 
 ///@desc Calls ssave.save() on all SSaveManager ssaves
-///@param {SSave|undefined} ssaveConstructor The constructor for the ssave file type to save. Saves *all* ssaves, independant of the constructor, if this is undefined
+///@param {function} [ssaveConstructor] The constructor for the ssave file type to save. Saves *all* ssaves, independant of the constructor, if this is undefined
 function ssave_save_all(_ssaveConstructor = undefined)
 {
 	if (!SSAVE_USE_MANAGER)
@@ -70,12 +70,12 @@ function ssave_save_all(_ssaveConstructor = undefined)
 function SSaveManager() constructor
 {
 	///@desc Gets an ssave, creating it if it doesnt exist already
-	///@param {SSave} ssaveConstructor The constructor for the ssave file
-	///@param {string|undefined} filePrefix The file prefix (SSAVE_FILE_PREFIX_DEFAULT if undefined)
+	///@param {function} ssaveConstructor The constructor for the ssave file
+	///@param {string} [filePrefix] The file prefix (SSAVE_FILE_PREFIX_DEFAULT if undefined)
 	///@returns {SSave}
 	static get = function(_ssaveConstructor, _filePrefix = undefined)
 	{
-		_filePrefix ??= SSAVE_FILE_PREFIX_DEFAULT;
+		if (_filePrefix == undefined) _filePrefix = SSAVE_FILE_PREFIX_DEFAULT;
 		
 		var _ssave = __find(_filePrefix, _ssaveConstructor);
 		if ((_ssave == undefined) && (_ssaveConstructor != undefined))
@@ -90,11 +90,11 @@ function SSaveManager() constructor
 	}
 	
 	///@desc Removes and deletes an ssave
-	///@param {SSave} ssaveConstructor The constructor for the ssave file
-	///@param {string|undefined} filePrefix The file prefix (SSAVE_FILE_PREFIX_DEFAULT if undefined)
+	///@param {function} ssaveConstructor The constructor for the ssave file
+	///@param {string} [filePrefix] The file prefix (SSAVE_FILE_PREFIX_DEFAULT if undefined)
 	static remove = function(_ssaveConstructor, _filePrefix = undefined)
 	{
-		_filePrefix ??= SSAVE_FILE_PREFIX_DEFAULT;
+		if (_filePrefix == undefined) _filePrefix = SSAVE_FILE_PREFIX_DEFAULT;
 		
 		var _index = __find_index(_filePrefix, _ssaveConstructor);
 		if (_index == -1) return;
@@ -158,14 +158,6 @@ function SSaveManager() constructor
 		}
 		
 		ds_list_add(_ssaves, _ssaveToRegister);
-	}
-	
-	static __deregister = function(_ssave, _ssaveConstructor)
-	{
-		var _index = __find_index(_ssave, _ssaveConstructor);
-		if (_index == -1) return;
-		
-		__deregister_by_index(_index, _ssaveConstructor);
 	}
 	
 	static __deregister_by_index = function(_index, _ssaveConstructor)

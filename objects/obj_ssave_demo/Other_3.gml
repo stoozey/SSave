@@ -1,0 +1,1 @@
+ssave_save_all();
