@@ -5,6 +5,11 @@ function __ssave_class_value(_name, _type, _defaultValue) constructor
 		return (__value ?? __defaultValue);
 	}
 	
+	static get_default = function()
+	{
+		return __defaultValue;
+	}
+	
 	static set = function(_value)
 	{
 		if (!__is_type(_value))

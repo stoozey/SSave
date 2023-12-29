@@ -46,7 +46,7 @@ function __ssave_string_to_buffer(_string)
 function __ssave_encrypt(_json)
 {
 	var _buffer = __ssave_string_to_buffer(_json);
-    var _encrypted = __ssave_3rdparty_sphinx_encrypt_buffer(_buffer, SSAVE_ENCRYPTION_KEY)
+    var _encrypted = __ssave_3rdparty_sphinx_encrypt_buffer(_buffer, SSAVE_ENCRYPTION_KEY);
 	buffer_delete(_buffer);
 	
 	return _encrypted;

@@ -14,6 +14,17 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 		return _valueData.get();
 	}
 	
+	///@desc Gets the default value in the ssave
+	///@param {string} name The name of the value
+	static get_default = function(_name)
+	{
+		var _valueData = __get_value_data(_name);
+		if (_valueData == undefined)
+			return __throw_name_doesnt_exist(_name);
+		
+		return _valueData.get_default();
+	}
+	
 	///@desc Updates a value in the ssave
 	///@param {string} name The name of the value
 	///@param {any} value The value to be set
@@ -26,6 +37,26 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 		
 		_valueData.set(_value);
 		return self;
+	}
+	
+	///@desc Resets a value in the ssave to it's default value
+	///@param {string} name The name of the value
+	static reset = function(_name)
+	{
+		var _default = get_default(_name);
+		set(_name, _default);
+	}
+	
+	///@desc Resets all values in the ssave to their default values
+	static reset_all = function()
+	{
+		var i = 0;
+		var _names = variable_struct_get_names(__values);
+		repeat (array_length(_names))
+		{
+			var _name = _names[i++];
+			reset(_name);
+		}
 	}
 	
 	///@desc Adds a new value to the ssave (This is intended to be called inside the constructor, see the demo for example)
