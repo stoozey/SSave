@@ -127,7 +127,7 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 	
 	#region internal
 	
-	static __save_to_file = function(_filename, _async = SSAVE_USE_ASYNC_DEFAULT)
+	static __save_to_file = function(_filename)
 	{
 		var _success, _buffer = undefined, _data = undefined;
 		try
@@ -157,17 +157,8 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 			var _header = new __ssave_class_header();
 			_header.write_to_buffer(_buffer, self);
 			buffer_copy(_data, 0, _dataSize, _buffer, buffer_tell(_buffer));
-			
-			if (_async)
-			{
-				var _size = buffer_get_size(_buffer);
-				__asyncSaveId = buffer_save_async(_buffer, _filename, 0, _size);
-			}
-			else
-			{
-				buffer_save(_buffer, _filename);
-			}
-			
+			buffer_save(_buffer, _filename);
+	
 			__ssave_print("saved file to: ", _filename);
 			_success = true;
 		}
@@ -188,7 +179,7 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 		return _success;
 	}
 	
-	static __load_from_file = function(_filename, _async = SSAVE_USE_ASYNC_DEFAULT)
+	static __load_from_file = function(_filename)
 	{
 		if (!file_exists(_filename)) return false;
 		
@@ -349,8 +340,6 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 	
 	__values = { };
 	__filePrefix = SSAVE_FILE_PREFIX_DEFAULT;
-	__asyncLoadId = -1;
-	__asyncSaveId = -1;
 	
 	#endregion
 }
