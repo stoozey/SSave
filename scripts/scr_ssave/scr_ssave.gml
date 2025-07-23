@@ -194,14 +194,6 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 			switch (_header.get_version())
 			{
 				default:
-				case "1.4.0": // im beginning to think i overengineered this
-				case "1.3.3":
-				case "1.3.2":
-				case "1.3.1":
-				case "1.3.0":
-				case "1.2.0":
-				case "1.1.1":
-				case "1.0.1":
 				case "1.0.0":
 				{
 					var _bufferPos = buffer_tell(_buffer);

@@ -1,11 +1,13 @@
 {
-  "resourceType": "GMScript",
-  "resourceVersion": "1.0",
-  "name": "scr_ssave_manager",
-  "isCompatibility": false,
-  "isDnD": false,
-  "parent": {
-    "name": "SSave",
-    "path": "folders/SSave.yy",
+  "$GMScript":"v1",
+  "%Name":"scr_ssave_manager",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_ssave_manager",
+  "parent":{
+    "name":"SSave",
+    "path":"folders/SSave.yy",
   },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

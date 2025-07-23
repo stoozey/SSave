@@ -7,8 +7,7 @@ if (SSAVE_USE_MANAGER)
 ///@returns {SSave}
 function ssave_get(_ssaveConstructor, _filePrefix = undefined)
 {
-	if (!SSAVE_USE_MANAGER)
-		throw ("SSave config value \"SSAVE_USE_MANAGER\" is false");
+	__ssave_throw_if_not_using_manager();
 	
 	return global.__ssave_manager.get(_ssaveConstructor, _filePrefix);
 }
@@ -18,8 +17,7 @@ function ssave_get(_ssaveConstructor, _filePrefix = undefined)
 ///@param {string} [filePrefix] The file prefix (SSAVE_FILE_PREFIX_DEFAULT if undefined)
 function ssave_remove(_ssaveConstructor, _filePrefix = undefined)
 {
-	if (!SSAVE_USE_MANAGER)
-		throw ("SSave config value \"SSAVE_USE_MANAGER\" is false");
+	__ssave_throw_if_not_using_manager();
 	
 	return global.__ssave_manager.remove(_ssaveConstructor, _filePrefix);
 }
@@ -29,8 +27,7 @@ function ssave_remove(_ssaveConstructor, _filePrefix = undefined)
 ///@returns {Array<SSave>} Array of ssaves
 function ssave_get_all(_ssaveConstructor = undefined)
 {
-	if (!SSAVE_USE_MANAGER)
-		throw ("SSave config value \"SSAVE_USE_MANAGER\" is false");
+	__ssave_throw_if_not_using_manager();
 	
 	var _ssavesList = ds_list_create();
 	with (global.__ssave_manager)
@@ -58,8 +55,7 @@ function ssave_get_all(_ssaveConstructor = undefined)
 ///@param {function} [ssaveConstructor] The constructor for the ssave file type to save. Saves *all* ssaves, independant of the constructor, if this is undefined
 function ssave_save_all(_ssaveConstructor = undefined)
 {
-	if (!SSAVE_USE_MANAGER)
-		throw ("SSave config value \"SSAVE_USE_MANAGER\" is false");
+	__ssave_throw_if_not_using_manager();
 	
 	var _ssaves = ssave_get_all(_ssaveConstructor);
 	var i = 0;
@@ -174,4 +170,9 @@ function SSaveManager() constructor
 	#endregion
 	
 	__ssaves = { };
+}
+
+function __ssave_throw_if_not_using_manager() {
+	if (!SSAVE_USE_MANAGER)
+		throw ("SSave config value \"SSAVE_USE_MANAGER\" is false");
 }

@@ -1,16 +1,23 @@
-Save = function()
-{
-	with (obj_ssave_demo_player)
-	{
-		static config = ssave_get(ConfigFile);
-		
-		ssave_get(SaveFile, config.get("saveIndex"))
-        .set("x", x)
-        .set("y", y)
-        .set("name", name)
-		.set("playtime", playtime)
-		.save();
-	}
+enum PLAYER_STATE {
+	IDLE,
+	JUMP_UP,
+	JUMP_DOWN
 }
 
-instance_create_depth(0, 0, 0, obj_ssave_demo_player);
+GetCoinAmount = function() {
+	return ((1 + coinIndex) * 100);
+}
+
+playerState = PLAYER_STATE.IDLE;
+playerHeightOffset = 0;
+
+blockHeightOffset = 0;
+
+coinAnim = 0;
+coinIndex = 0;
+
+playtime = 0;
+totalCoins = 0;
+
+var _font = font_add("Early GameBoy.ttf", 16, true, false, 32, 128);
+draw_set_font(_font);
