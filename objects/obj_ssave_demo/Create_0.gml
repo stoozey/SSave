@@ -1,23 +1,27 @@
-enum PLAYER_STATE {
-	IDLE,
-	JUMP_UP,
-	JUMP_DOWN
+#macro TOTAL_SLOTS 3
+
+LoadSlot = function(_slotIndex) {
+	currentSlotIndex = _slotIndex;
+	
+	var _save = ssave_get(SaveFile, _slotIndex);
+	playtime = _save.get("playtime");
+	totalCoins = _save.get("totalCoins");
+	
+	// can chain function calls instead of caching the config into a variable
+	ssave_get(ConfigFile)
+		.set("lastLoadedSlot", _slotIndex)
+		.save();
 }
 
-GetCoinAmount = function() {
-	return ((1 + coinIndex) * 100);
+Save = function() {
+	ssave_get(SaveFile, currentSlotIndex)
+		.set("playtime", playtime)
+		.set("totalCoins", totalCoins)
+		.save();
 }
-
-playerState = PLAYER_STATE.IDLE;
-playerHeightOffset = 0;
-
-blockHeightOffset = 0;
-
-coinAnim = 0;
-coinIndex = 0;
 
 playtime = 0;
 totalCoins = 0;
 
-var _font = font_add("Early GameBoy.ttf", 16, true, false, 32, 128);
-draw_set_font(_font);
+currentSlotIndex = 0;
+LoadSlot(currentSlotIndex);

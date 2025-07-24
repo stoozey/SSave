@@ -9,12 +9,12 @@ Version 1.0.0 - 2021-06-08
 
 #macro SPHINX_MAXIMUM_XOR_BYTES  infinity
 
-function __ssave_3rdparty_sphinx_decrypt_buffer(_buffer, _key)
+function __ssave_thirdparty_sphinx_decrypt_buffer(_buffer, _key)
 {
-    return __ssave_3rdparty_sphinx_decrypt_buffer_ext(_buffer, 0, buffer_get_size(_buffer), _key);
+    return __ssave_thirdparty_sphinx_decrypt_buffer_ext(_buffer, 0, buffer_get_size(_buffer), _key);
 }
 
-function __ssave_3rdparty_sphinx_decrypt_buffer_ext(_buffer, _offset, _size, _key)
+function __ssave_thirdparty_sphinx_decrypt_buffer_ext(_buffer, _offset, _size, _key)
 {
     var _tempBuffer = buffer_create(_size, buffer_fixed, 1);
     buffer_copy(_buffer, _offset, _size, _tempBuffer, 0);
@@ -38,12 +38,12 @@ function __ssave_3rdparty_sphinx_decrypt_buffer_ext(_buffer, _offset, _size, _ke
     return _decompressed;
 }
 
-function __ssave_3rdparty_sphinx_encrypt_buffer(_buffer, _key)
+function __ssave_thirdparty_sphinx_encrypt_buffer(_buffer, _key)
 {
-    return __ssave_3rdparty_sphinx_encrypt_buffer_ext(_buffer, 0, buffer_get_size(_buffer), _key);
+    return __ssave_thirdparty_sphinx_encrypt_buffer_ext(_buffer, 0, buffer_get_size(_buffer), _key);
 }
 
-function __ssave_3rdparty_sphinx_encrypt_buffer_ext(_buffer, _offset, _size, _key)
+function __ssave_thirdparty_sphinx_encrypt_buffer_ext(_buffer, _offset, _size, _key)
 {
     var _compressed = buffer_compress(_buffer, _offset, _size);
     

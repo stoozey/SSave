@@ -2,30 +2,30 @@ if (SSAVE_USE_MANAGER)
 	global.__ssave_manager = new SSaveManager();
 
 ///@desc Wrapper for SSaveManager.get
-///@param {function} ssaveConstructor The constructor for the ssave file
-///@param {string} [filePrefix] The file prefix (SSAVE_FILE_PREFIX_DEFAULT if undefined)
-///@returns {SSave}
-function ssave_get(_ssaveConstructor, _filePrefix = undefined)
+///@param {Function} ssaveConstructor The constructor for the ssave file
+///@param {String} [filePrefix] The file prefix (SSAVE_FILE_PREFIX_DEFAULT if undefined)
+///@returns {Struct.SSave}
+function ssave_get(ssaveConstructor, filePrefix = undefined)
 {
 	__ssave_throw_if_not_using_manager();
 	
-	return global.__ssave_manager.get(_ssaveConstructor, _filePrefix);
+	return global.__ssave_manager.get(ssaveConstructor, filePrefix);
 }
 
 ///@desc Wrapper for SSaveManager.remove
-///@param {function} ssaveConstructor The constructor for the ssave file
-///@param {string} [filePrefix] The file prefix (SSAVE_FILE_PREFIX_DEFAULT if undefined)
-function ssave_remove(_ssaveConstructor, _filePrefix = undefined)
+///@param {Function} ssaveConstructor The constructor for the ssave file
+///@param {String} [filePrefix] The file prefix (SSAVE_FILE_PREFIX_DEFAULT if undefined)
+function ssave_remove(ssaveConstructor, filePrefix = undefined)
 {
 	__ssave_throw_if_not_using_manager();
 	
-	return global.__ssave_manager.remove(_ssaveConstructor, _filePrefix);
+	return global.__ssave_manager.remove(ssaveConstructor, filePrefix);
 }
 
 ///@desc Gets all ssaves being managed by SSaveManager
-///@param {function} [ssaveConstructor] The constructor for the ssave file to get all of. Returns *all* ssaves, independant of the constructor, if this is undefined
-///@returns {Array<SSave>} Array of ssaves
-function ssave_get_all(_ssaveConstructor = undefined)
+///@param {Function} [ssaveConstructor] The constructor for the ssave file to get all of. Returns *all* ssaves, independant of the constructor, if this is undefined
+///@returns {Array<Struct.SSave>} Array of ssaves
+function ssave_get_all(ssaveConstructor = undefined)
 {
 	__ssave_throw_if_not_using_manager();
 	
@@ -33,7 +33,7 @@ function ssave_get_all(_ssaveConstructor = undefined)
 	with (global.__ssave_manager)
 	{
 		var i = 0;
-		var _ssaveConstructors = ((_ssaveConstructor == undefined) ? variable_struct_get_names(__ssaves) : [ _ssaveConstructor ]);
+		var _ssaveConstructors = ((ssaveConstructor == undefined) ? variable_struct_get_names(__ssaves) : [ ssaveConstructor ]);
 		repeat (array_length(_ssaveConstructors))
 		{
 			var _constructorName = _ssaveConstructors[i++];
@@ -52,12 +52,12 @@ function ssave_get_all(_ssaveConstructor = undefined)
 }
 
 ///@desc Calls ssave.save() on all SSaveManager ssaves
-///@param {function} [ssaveConstructor] The constructor for the ssave file type to save. Saves *all* ssaves, independant of the constructor, if this is undefined
-function ssave_save_all(_ssaveConstructor = undefined)
+///@param {Function} [ssaveConstructor] The constructor for the ssave file type to save. Saves *all* ssaves, independant of the constructor, if this is undefined
+function ssave_save_all(ssaveConstructor = undefined)
 {
 	__ssave_throw_if_not_using_manager();
 	
-	var _ssaves = ssave_get_all(_ssaveConstructor);
+	var _ssaves = ssave_get_all(ssaveConstructor);
 	var i = 0;
 	repeat (array_length(_ssaves))
 		_ssaves[i++].save();
@@ -66,69 +66,70 @@ function ssave_save_all(_ssaveConstructor = undefined)
 function SSaveManager() constructor
 {
 	///@desc Gets an ssave, creating it if it doesnt exist already
-	///@param {function} ssaveConstructor The constructor for the ssave file
-	///@param {string} [filePrefix] The file prefix (SSAVE_FILE_PREFIX_DEFAULT if undefined)
-	///@returns {SSave}
-	static get = function(_ssaveConstructor, _filePrefix = undefined)
+	///@param {Function} ssaveConstructor The constructor for the ssave file
+	///@param {String} [filePrefix] The file prefix (SSAVE_FILE_PREFIX_DEFAULT if undefined)
+	///@returns {Struct.SSave}
+	static get = function(ssaveConstructor, filePrefix = undefined)
 	{
-		if (_filePrefix == undefined) _filePrefix = SSAVE_FILE_PREFIX_DEFAULT;
+		filePrefix ??= SSAVE_FILE_PREFIX_DEFAULT;
 		
-		var _ssave = __find(_filePrefix, _ssaveConstructor);
-		if ((_ssave == undefined) && (_ssaveConstructor != undefined))
+		var _ssave = __find(filePrefix, ssaveConstructor);
+		if ((_ssave == undefined) && (ssaveConstructor != undefined))
 		{
-			_ssave = new _ssaveConstructor();
-			_ssave.load(_filePrefix);
+			_ssave = new ssaveConstructor();
+			_ssave.load(filePrefix);
 			
-			__register(_ssave, _ssaveConstructor);
+			__register(_ssave, ssaveConstructor);
 		}
 		
 		return _ssave;
 	}
 	
 	///@desc Removes and deletes an ssave
-	///@param {function} ssaveConstructor The constructor for the ssave file
-	///@param {string} [filePrefix] The file prefix (SSAVE_FILE_PREFIX_DEFAULT if undefined)
-	static remove = function(_ssaveConstructor, _filePrefix = undefined)
-	{
-		if (_filePrefix == undefined) _filePrefix = SSAVE_FILE_PREFIX_DEFAULT;
+	///@param {Function} ssaveConstructor The constructor for the ssave file
+	///@param {String} [filePrefix] The file prefix (SSAVE_FILE_PREFIX_DEFAULT if undefined)
+	static remove = function(ssaveConstructor, filePrefix = undefined)
+	{	
+		var index = __find_index(filePrefix ?? SSAVE_FILE_PREFIX_DEFAULT, ssaveConstructor);
+		if (index == -1) return;
 		
-		var _index = __find_index(_filePrefix, _ssaveConstructor);
-		if (_index == -1) return;
-		
-		__deregister_by_index(_index, _ssaveConstructor);
+		__deregister_by_index(index, ssaveConstructor);
 	}
 	
 	#region internal
 	
-	static __get_ssaves = function(_ssaveConstructor)
+	///@ignore
+	static __get_ssaves = function(ssaveConstructor)
 	{
-		if (!variable_struct_exists(__ssaves, _ssaveConstructor))
+		if (!variable_struct_exists(__ssaves, ssaveConstructor))
 		{
 			var _ssaves = ds_list_create();
-			__ssaves[$ _ssaveConstructor] = _ssaves;
+			__ssaves[$ ssaveConstructor] = _ssaves;
 		}
 		
-		return __ssaves[$ _ssaveConstructor];
+		return __ssaves[$ ssaveConstructor];
 	}
 	
-	static __find = function(_filePrefix, _ssaveConstructor)
+	///@ignore
+	static __find = function(filePrefix, ssaveConstructor)
 	{
-		var _index = __find_index(_filePrefix, _ssaveConstructor);
-		if (_index == -1) return undefined;
+		var index = __find_index(filePrefix, ssaveConstructor);
+		if (index == -1) return undefined;
 		
-		var _ssaves = __get_ssaves(_ssaveConstructor);
-		return _ssaves[| _index];
+		var _ssaves = __get_ssaves(ssaveConstructor);
+		return _ssaves[| index];
 	}
 	
-	static __find_index = function(_filePrefix, _ssaveConstructor)
+	///@ignore
+	static __find_index = function(filePrefix, ssaveConstructor)
 	{
-		var _ssaves = __get_ssaves(_ssaveConstructor);
+		var _ssaves = __get_ssaves(ssaveConstructor);
 		
 		var i = 0;
 		repeat (ds_list_size(_ssaves))
 		{
 			var _ssave = _ssaves[| i];
-			if (_ssave.get_file_prefix() == _filePrefix)
+			if (_ssave.get_file_prefix() == filePrefix)
 				return i;
 			
 			i++;
@@ -137,14 +138,15 @@ function SSaveManager() constructor
 		return -1;
 	}
 	
-	static __register = function(_ssaveToRegister, _ssaveConstructor)
+	///@ignore
+	static __register = function(ssaveToRegister, ssaveConstructor)
 	{
-		var _ssaves = __get_ssaves(_ssaveConstructor);
-		var _index = ds_list_find_index(_ssaves, _ssaveToRegister);
-		if (_index != -1) return;
+		var _ssaves = __get_ssaves(ssaveConstructor);
+		var index = ds_list_find_index(_ssaves, ssaveToRegister);
+		if (index != -1) return;
 		
-		var _filePrefix = _ssaveToRegister.get_file_prefix();
-		var _existingIndex = __find_index(_filePrefix, _ssaveConstructor);
+		var filePrefix = ssaveToRegister.get_file_prefix();
+		var _existingIndex = __find_index(filePrefix, ssaveConstructor);
 		if (_existingIndex != -1)
 		{
 			var _existingSsave = _ssaves[| _existingIndex];
@@ -153,23 +155,25 @@ function SSaveManager() constructor
 			delete _existingSsave;
 		}
 		
-		ds_list_add(_ssaves, _ssaveToRegister);
+		ds_list_add(_ssaves, ssaveToRegister);
 	}
 	
-	static __deregister_by_index = function(_index, _ssaveConstructor)
+	///@ignore
+	static __deregister_by_index = function(index, ssaveConstructor)
 	{
-		var _ssaves = __get_ssaves(_ssaveConstructor);
-		if ((_index < 0) || (_index >= ds_list_size(_ssaves))) return;
+		var _ssaves = __get_ssaves(ssaveConstructor);
+		if ((index < 0) || (index >= ds_list_size(_ssaves))) return;
 		
-		var _ssave = _ssaves[| _index];
-		ds_list_delete(_ssaves, _index);
+		var _ssave = _ssaves[| index];
+		ds_list_delete(_ssaves, index);
 		
 		delete _ssave;
 	}
 	
-	#endregion
-	
+	///@ignore
 	__ssaves = { };
+	
+	#endregion
 }
 
 function __ssave_throw_if_not_using_manager() {
