@@ -1,0 +1,15 @@
+# Thank you for using SSave!
+---
+
+## Incredibly majestic words of advice
+### Demo
+The important bits to look at for this demo are in:
+- `obj_ssave_demo_manager` - handles saving/loading logic
+- `scr_ssave_demo_saves` - defines the save and config files
+
+Any other code/assets aren't relevant to SSave itself.
+
+### SSave
+Everything you need is right in the root SSave folder, so there's no need to go into the `Internal` folder - unless you want to...?
+
+The scripts in the root folder all have JSDoc to help you understand what's going on better.

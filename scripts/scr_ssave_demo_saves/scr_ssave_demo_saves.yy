@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"scr_ssave_demo",
+  "%Name":"scr_ssave_demo_saves",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scr_ssave_demo",
+  "name":"scr_ssave_demo_saves",
   "parent":{
     "name":"Demo",
     "path":"folders/Demo.yy",

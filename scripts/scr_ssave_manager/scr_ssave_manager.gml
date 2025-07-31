@@ -178,5 +178,5 @@ function SSaveManager() constructor
 
 function __ssave_throw_if_not_using_manager() {
 	if (!SSAVE_USE_MANAGER)
-		throw ("SSave config value \"SSAVE_USE_MANAGER\" is false");
+		__ssave_throw("tried to use the SSave manager whilst config value \"SSAVE_USE_MANAGER\" is false");
 }

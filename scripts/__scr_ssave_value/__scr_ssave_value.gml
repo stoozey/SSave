@@ -12,8 +12,10 @@ function __ssave_class_value(_name, _type, _defaultValue) constructor
 	
 	static set = function(_value)
 	{
-		if (!__is_type(_value))
-			return __ssave_print("Tried to set the value of ", __name, " to something other than it's type. Ignoring request.");
+		if (!__is_type(_value)) {
+            var _message = $"Tried to set the value of {__name} to something other than it's type."
+            ((SSAVE_ERROR_ON_SET_INVALID_TYPE) ? __ssave_throw : __ssave_print)(_message);
+        }
 		
 		switch (__type)
 		{
@@ -33,7 +35,6 @@ function __ssave_class_value(_name, _type, _defaultValue) constructor
 					buffer_seek(_value, buffer_seek_start, 0);
 					_value = _buffer;
 				}
-				
 				break;
 		}
 		
@@ -79,5 +80,5 @@ function __ssave_class_value(_name, _type, _defaultValue) constructor
 	
 	// Make sure the default value is actually valid
 	if (!__is_type(__defaultValue))
-		throw ("SSave value \"" + __name + "\" has a default value which isn't of the correct type"); 
+        __ssave_throw("value \"" + __name + "\" has a default value which isn't of the correct type"); 
 }

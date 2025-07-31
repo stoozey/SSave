@@ -8,6 +8,16 @@ function __ssave_print()
     show_debug_message(_string);
 }
 
+function __ssave_throw()
+{
+    var _string = "########## SSave: ";
+    var _i = 0;
+    repeat (argument_count)
+        _string += string(argument[_i++]);
+	
+    throw (_string);
+}
+
 function __ssave_get_save_directory()
 {
 	if (SSAVE_DIRECTORY == "") return SSAVE_DIRECTORY;

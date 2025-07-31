@@ -339,7 +339,7 @@ function SSave(name = "data", protection = SSAVE_PROTECTION_DEFAULT) constructor
 	///@ignore
 	static __throw_name_doesnt_exist = function(_name)
 	{
-		throw ("SSave value name \"" + _name + "\" doesn't exist--did you get the name wrong?");
+		__ssave_throw("value name \"" + _name + "\" doesn't exist--did you get the name wrong?");
 	}
 	
 	///@ignore
