@@ -1,5 +1,4 @@
-if (SSAVE_USE_MANAGER)
-	global.__ssave_manager = new SSaveManager();
+// https://stoozey.github.io/SSave-Docs/ssave-manager/
 
 ///@desc Wrapper for SSaveManager.get
 ///@param {Function} ssaveConstructor The constructor for the ssave file
@@ -178,7 +177,14 @@ function SSaveManager() constructor
 	#endregion
 }
 
+#region internal
+
+if (SSAVE_USE_MANAGER)
+	global.__ssave_manager = new SSaveManager();
+
 function __ssave_throw_if_not_using_manager() {
 	if (!SSAVE_USE_MANAGER)
 		__ssave_throw("tried to use the SSave manager whilst config value \"SSAVE_USE_MANAGER\" is false");
 }
+
+#endregion

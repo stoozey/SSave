@@ -9,16 +9,16 @@ function SaveFile() : SSave("save") constructor
     
     /*
      * examples of other value types:
-    add_value("someArray", SSAVE_TYPE.ARRAY, []);
-    add_value("someString, SSAVE_TYPE.STRING, "hi");
-    add_value(someStruct, SSAVE_TYPE.STRUCT, {});
+	 add_value("someString, SSAVE_TYPE.STRING, "hi");
+	 add_value(someStruct, SSAVE_TYPE.STRUCT, {});
+	 add_value("someArray", SSAVE_TYPE.ARRAY, []);
      
      * it's also possible to use buffers as values
      * if you're going to use buffers, keep in mind the `SSAVE_COPY_BUFFER_ON_SET` config option
-    var _buffer = buffer_create(32, buffer_grow, 1);
-    buffer_write(_buffer, buffer_u16, 69);
-    buffer_write(_buffer, buffer_u16, 420);
-    add_value("someBuffer", SSAVE_TYPE.BUFFER, _buffer);
+     var _buffer = buffer_create(4, buffer_fixed, 2);
+     buffer_write(_buffer, buffer_u16, 69);
+     buffer_write(_buffer, buffer_u16, 420);
+     add_value("someBuffer", SSAVE_TYPE.BUFFER, _buffer);
     */
 }
 
@@ -28,6 +28,6 @@ function SaveFile() : SSave("save") constructor
  */
 function ConfigFile() : SSave("config") constructor
 {
-	add_value("lastLoadedSlot", SSAVE_TYPE.REAL, 0);
+	add_value("lastLoadedSlot", SSAVE_TYPE.REAL, 1);
 	add_value("soundsEnabled", SSAVE_TYPE.BOOLEAN, true);
 }

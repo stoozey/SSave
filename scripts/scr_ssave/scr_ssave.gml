@@ -1,3 +1,5 @@
+// https://stoozey.github.io/SSave-Docs/ssave/
+
 ///@desc The base constructor for the SSave file (this should be inherited from a new class - e.g "	SaveFile() : SSave() constructor")
 ///@param {String} [name The name of the file that gets saved
 ///@param {Real} protection] The amount of protection that the data receives (of enum type SSAVE_PROTECTION)

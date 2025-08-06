@@ -50,5 +50,6 @@ totalCoins = 0;
 
 currentSlotIndex = -1;
 
-// load default slot
-Load(1);
+// load last saved slot
+var _lastLoadedSlot = ssave_get(ConfigFile).get("lastLoadedSlot");
+Load(_lastLoadedSlot);

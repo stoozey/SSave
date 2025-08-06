@@ -1,3 +1,5 @@
+// https://stoozey.github.io/SSave-Docs/config/
+
 #macro SSAVE_DIRECTORY ""    // The directory that saves are saved to
 #macro SSAVE_FILE_PREFIX_DEFAULT ""    // When no file prefix is supplied, this is used by default
 
