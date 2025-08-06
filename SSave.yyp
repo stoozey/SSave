@@ -29,6 +29,7 @@
   "name":"SSave",
   "resources":[
     {"id":{"name":"DEMO CREDITS","path":"notes/DEMO CREDITS/DEMO CREDITS.yy",},},
+    {"id":{"name":"DOCUMENTATION","path":"notes/DOCUMENTATION/DOCUMENTATION.yy",},},
     {"id":{"name":"READ ME","path":"notes/READ ME/READ ME.yy",},},
     {"id":{"name":"obj_ssave_demo_manager","path":"objects/obj_ssave_demo_manager/obj_ssave_demo_manager.yy",},},
     {"id":{"name":"obj_ssave_demo_player","path":"objects/obj_ssave_demo_player/obj_ssave_demo_player.yy",},},

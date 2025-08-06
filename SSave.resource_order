@@ -6,6 +6,7 @@
   ],
   "ResourceOrderSettings":[
     {"name":"DEMO CREDITS","order":4,"path":"notes/DEMO CREDITS/DEMO CREDITS.yy",},
+    {"name":"DOCUMENTATION","order":4,"path":"notes/DOCUMENTATION/DOCUMENTATION.yy",},
     {"name":"READ ME","order":34,"path":"notes/READ ME/READ ME.yy",},
     {"name":"obj_ssave_demo_manager","order":33,"path":"objects/obj_ssave_demo_manager/obj_ssave_demo_manager.yy",},
     {"name":"obj_ssave_demo_player","order":30,"path":"objects/obj_ssave_demo_player/obj_ssave_demo_player.yy",},

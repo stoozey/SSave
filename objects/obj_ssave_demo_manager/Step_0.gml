@@ -1,9 +1,11 @@
 // increment playtime
 playtime += (delta_time / 1_000_000);
 
-if (keyboard_check_pressed(ord(0)))
-    Load(0);
-else if (keyboard_check_pressed(ord(1)))
-    Load(1);
-else if (keyboard_check_pressed(ord(2)))
-    Load(2);
+// check for keys 1-3 and load the matching save slot
+var _key = 1;
+repeat (3) {
+	if (keyboard_check_pressed(ord(_key)))
+		Load(_key);
+	
+	_key++;
+}

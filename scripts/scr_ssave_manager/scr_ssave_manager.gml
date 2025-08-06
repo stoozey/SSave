@@ -29,26 +29,7 @@ function ssave_get_all(ssaveConstructor = undefined)
 {
 	__ssave_throw_if_not_using_manager();
 	
-	var _ssavesList = ds_list_create();
-	with (global.__ssave_manager)
-	{
-		var i = 0;
-		var _ssaveConstructors = ((ssaveConstructor == undefined) ? variable_struct_get_names(__ssaves) : [ ssaveConstructor ]);
-		repeat (array_length(_ssaveConstructors))
-		{
-			var _constructorName = _ssaveConstructors[i++];
-			var _ssaves = __ssaves[$ _constructorName];
-			
-			var j = 0;
-			repeat (ds_list_size(_ssaves))
-			{
-				var _ssave = _ssaves[| j++];
-				ds_list_add(_ssavesList, _ssave);
-			}
-		}
-	}
-	
-	return __ssave_ds_list_to_array(_ssavesList);
+	return global.__ssave_manager.get_all(ssaveConstructor);
 }
 
 ///@desc Calls ssave.save() on all SSaveManager ssaves
@@ -94,6 +75,27 @@ function SSaveManager() constructor
 		if (index == -1) return;
 		
 		__deregister_by_index(index, ssaveConstructor);
+	}
+	
+	static get_all = function(ssaveConstructor)
+	{
+		var i = 0;
+		var _ssavesList = ds_list_create();
+		var _ssaveConstructors = ((ssaveConstructor == undefined) ? variable_struct_get_names(__ssaves) : [ ssaveConstructor ]);
+		repeat (array_length(_ssaveConstructors))
+		{
+			var _constructorName = _ssaveConstructors[i++];
+			var _ssaves = __ssaves[$ _constructorName];
+			
+			var j = 0;
+			repeat (ds_list_size(_ssaves))
+			{
+				var _ssave = _ssaves[| j++];
+				ds_list_add(_ssavesList, _ssave);
+			}
+		}
+		
+		return __ssave_ds_list_to_array(_ssavesList);
 	}
 	
 	#region internal

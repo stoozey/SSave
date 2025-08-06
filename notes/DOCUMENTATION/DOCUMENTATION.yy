@@ -1,0 +1,11 @@
+{
+  "$GMNotes":"",
+  "%Name":"DOCUMENTATION",
+  "name":"DOCUMENTATION",
+  "parent":{
+    "name":"SSave",
+    "path":"folders/SSave.yy",
+  },
+  "resourceType":"GMNotes",
+  "resourceVersion":"2.0",
+}
