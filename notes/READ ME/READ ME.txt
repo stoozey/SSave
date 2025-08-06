@@ -1,4 +1,4 @@
-# Thank you for using SSave!
+# Thank you for using [SSave](https://github.com/stoozey/SSave)!
 
 Make sure to check out the documentation at: https://stoozey.github.io/SSave-Docs/
 

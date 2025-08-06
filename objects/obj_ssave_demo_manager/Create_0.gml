@@ -29,8 +29,8 @@ Save = function() {
     var _protection;
     switch (currentSlotIndex) {
         default: _protection = SSAVE_PROTECTION.NONE; break;
-        case 1: _protection = SSAVE_PROTECTION.ENCODE; break;
-        case 2: _protection = SSAVE_PROTECTION.ENCRYPT; break;
+        case 2: _protection = SSAVE_PROTECTION.ENCODE; break;
+        case 3: _protection = SSAVE_PROTECTION.ENCRYPT; break;
     }
     
 	ssave_get(SaveFile, currentSlotIndex)

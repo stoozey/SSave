@@ -15,8 +15,9 @@ function __ssave_class_value(_name, _type, _defaultValue) constructor
 	static set = function(_value)
 	{
 		if (!__is_type(_value)) {
-            var _message = $"Tried to set the value of {__name} to something other than it's type.";
+            var _message = $"Tried to set the value of `{__name}` to something other than it's type.";
             ((SSAVE_ERROR_ON_SET_INVALID_TYPE) ? __ssave_throw(_message) : __ssave_print(_message));
+			return;
         }
 		
 		switch (__type)

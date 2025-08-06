@@ -10,7 +10,7 @@ function __ssave_print()
 
 function __ssave_throw()
 {
-    var _string = "########## SSave: ";
+    var _string = "SSave: ";
     var _i = 0;
     repeat (argument_count)
         _string += string(argument[_i++]);

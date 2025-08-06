@@ -7,4 +7,4 @@
 #macro SSAVE_ENCRYPTION_KEY 69420133769696969694204872936    // When using SSAVE_PROTECTION.ENCRYPT, this is the key used to encrypt it
 
 #macro SSAVE_COPY_BUFFER_ON_SET true            // When using SSave.set() with a buffer, the supplied buffer is copied (so you can delete your original)
-#macro SSAVE_ERROR_ON_SET_INVALID_TYPE false    // When using SSave.set() with an invalid type, throw an error (if false, it will print a warning instead)
+#macro SSAVE_ERROR_ON_SET_INVALID_TYPE true    // When using SSave.set() with an invalid type, throw an error (if false, it will print a warning instead)

@@ -176,7 +176,7 @@ function SSave(name = "data", protection = SSAVE_PROTECTION_DEFAULT) constructor
 		}
 		catch (_e)
 		{
-			__ssave_print("error saving file \"", _filename, "\" | ", _e.message);
+			__ssave_print("error saving file \"", _filename, "\" | error: ", _e);
 			_success = false;
 		}
 		finally
@@ -255,7 +255,7 @@ function SSave(name = "data", protection = SSAVE_PROTECTION_DEFAULT) constructor
 		}
 		catch (_e)
 		{
-			__ssave_print("error loading file \"", _filename, "\" | ", _e.message);
+			__ssave_print("error loading file \"", _filename, "\" | error: ", _e);
 			_success = false;
 		}
 		finally
@@ -267,6 +267,7 @@ function SSave(name = "data", protection = SSAVE_PROTECTION_DEFAULT) constructor
 				buffer_delete(_data);
 		}
 		
+		show_debug_message(_success);
 		return _success;
 	}
 	
