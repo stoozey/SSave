@@ -69,6 +69,17 @@ function SSave(name = "data", protection = SSAVE_PROTECTION_DEFAULT) constructor
 		return self;
 	}
 	
+	///@desc Deletes the file from disk if it exists
+	///@returns {Struct.SSave} Returns self for chaining
+	static erase = function()
+	{
+		var _filename = __get_filename();
+		if (file_exists(_filename))
+			file_delete(_filename);
+		
+		return self;
+	}
+	
 	///@ignore (This is intended to be called inside the constructor, see the demo for example)
 	///@desc Adds a new value to the ssave
 	///@param {String} name The name of the value
@@ -122,6 +133,7 @@ function SSave(name = "data", protection = SSAVE_PROTECTION_DEFAULT) constructor
 	static set_file_prefix = function(filePrefix)
 	{
 		__filePrefix = string(filePrefix);
+		return self;
 	}
 	
 	///@desc Gets the current file prefix

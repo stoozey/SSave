@@ -9,3 +9,7 @@ repeat (3) {
 	
 	_key++;
 }
+
+// delete the save file when backspace is pressed
+if (keyboard_check_pressed(vk_backspace))
+	ssave_erase(SaveFile, currentSlotIndex);

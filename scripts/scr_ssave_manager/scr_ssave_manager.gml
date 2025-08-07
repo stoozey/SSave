@@ -21,6 +21,19 @@ function ssave_remove(ssaveConstructor, filePrefix = undefined)
 	return global.__ssave_manager.remove(ssaveConstructor, filePrefix);
 }
 
+///@desc Deletes the file from disk if it exists
+///@param {Function} ssaveConstructor The constructor for the ssave file
+///@param {String} [filePrefix] The file prefix (SSAVE_FILE_PREFIX_DEFAULT if undefined)
+function ssave_erase(ssaveConstructor, filePrefix = undefined)
+{
+	__ssave_throw_if_not_using_manager();
+	
+	filePrefix ??= SSAVE_FILE_PREFIX_DEFAULT;
+	
+	var _ssave = (global.__ssave_manager.__find(filePrefix, ssaveConstructor) ?? new ssaveConstructor().set_file_prefix(filePrefix));
+	_ssave.erase();
+}
+
 ///@desc Gets all ssaves being managed by SSaveManager
 ///@param {Function} [ssaveConstructor] The constructor for the ssave file to get all of. Returns *all* ssaves, independant of the constructor, if this is undefined
 ///@returns {Array<Struct.SSave>} Array of ssaves

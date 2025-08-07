@@ -2,7 +2,7 @@
 
 // load save values into this object
 Load = function(_slotIndex) {
-    if ((_slotIndex <= 0) || (_slotIndex > TOTAL_SLOTS)) return;
+    if ((_slotIndex == currentSlotIndex) || (_slotIndex <= 0) || (_slotIndex > TOTAL_SLOTS)) return;
 	
     // before we update slot index, save the previous one
     if (currentSlotIndex != -1) {
