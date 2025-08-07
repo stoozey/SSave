@@ -25,16 +25,18 @@ Load = function(_slotIndex) {
 
 // get the save matching our slot index, then write the objects values to it
 Save = function() {
+	// retrieve the save
+	var _save = ssave_get(SaveFile, currentSlotIndex);
+	
     // showcase different protection levels depending on slot index
-    var _protection;
     switch (currentSlotIndex) {
-        default: _protection = SSAVE_PROTECTION.NONE; break;
-        case 2: _protection = SSAVE_PROTECTION.ENCODE; break;
-        case 3: _protection = SSAVE_PROTECTION.ENCRYPT; break;
+        default: _save.set_protection(SSAVE_PROTECTION.NONE); break;
+        case 2: _save.set_protection(SSAVE_PROTECTION.ENCODE); break;
+        case 3: _save.set_protection(SSAVE_PROTECTION.ENCRYPT); break;
     }
     
-	ssave_get(SaveFile, currentSlotIndex)
-        .set_protection(_protection)
+	// update the save's values with what's stored in our object, then save to disk
+	_save
 		.set("playtime", playtime)
 		.set("totalCoins", totalCoins)
 		.save();
@@ -50,6 +52,6 @@ totalCoins = 0;
 
 currentSlotIndex = -1;
 
-// load last saved slot
+// load the last saved slot
 var _lastLoadedSlot = ssave_get(ConfigFile).get("lastLoadedSlot");
 Load(_lastLoadedSlot);
