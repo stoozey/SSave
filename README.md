@@ -11,6 +11,8 @@
 While save files can be simple, there are a lot of issues that come from just simply saving and loading raw data.
 SSave tackles these problems whilst also having quality-of-life features that make creating save data easier and more secure.
 
+View the [documentation here](https://stoozey.github.io/SSave-Docs/)!
+
 ### ***Why use SSave?***
 
 - Comes with a built-in manager so you don't have to create a system to track everything yourself (this can be disabled if you really want to!)
