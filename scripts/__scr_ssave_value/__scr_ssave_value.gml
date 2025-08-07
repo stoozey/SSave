@@ -60,7 +60,7 @@ function __ssave_class_value(_name, _type, _defaultValue) constructor
 				return is_array(_value);
 			
 			case SSAVE_TYPE.BOOLEAN:
-				return (is_bool(_value) || is_real(_value));
+				return (is_bool(_value) || is_real(_value) || is_int64(_value) || is_int32(_value));
 			
 			case SSAVE_TYPE.REAL:
 				return is_real(_value);
