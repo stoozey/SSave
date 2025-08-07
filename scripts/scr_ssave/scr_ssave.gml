@@ -1,44 +1,98 @@
-///@desc The base constructor for the SSave file (this should be inherited from a new class - e.g "SaveFile() : SSave() constructor")
-///@param {string} [name] The name of the file that gets saved
-///@param {SSAVE_PROTECTION} [protection] The amount of protection that the data receives
-function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) constructor
+// https://stoozey.github.io/SSave-Docs/ssave/
+
+///@desc The base constructor for the SSave file (this should be inherited from a new class - e.g "	SaveFile() : SSave() constructor")
+///@param {String} [name The name of the file that gets saved
+///@param {Real} protection] The amount of protection that the data receives (of enum type SSAVE_PROTECTION)
+function SSave(name = "data", protection = SSAVE_PROTECTION_DEFAULT) constructor
 {
 	///@desc Gets a value in the ssave
-	///@param {string} name The name of the value
-	static get = function(_name)
+	///@param {String} name The name of the value
+	///@returns {Any} Returns the currently held value of that name
+	static get = function(name)
 	{
-		var _valueData = __get_value_data(_name);
+		var _valueData = __get_value_data(name);
 		if (_valueData == undefined)
-			return __throw_name_doesnt_exist(_name);
+			return __throw_name_doesnt_exist(name);
 		
 		return _valueData.get();
 	}
 	
-	///@desc Updates a value in the ssave
-	///@param {string} name The name of the value
-	///@param {any} value The value to be set
-	///@returns {SSave} Returns self for chaining
-	static set = function(_name, _value)
+	///@desc Gets the default value in the ssave
+	///@param {String} name The name of the value
+	///@returns {Any} Returns the default value defined in the save constructor
+	static get_default = function(name)
 	{
-		var _valueData = __get_value_data(_name);
+		var _valueData = __get_value_data(name);
 		if (_valueData == undefined)
-			return __throw_name_doesnt_exist(_name);
+			return __throw_name_doesnt_exist(name);
 		
-		_valueData.set(_value);
+		return _valueData.get_default();
+	}
+	
+	///@desc Updates a value in the ssave
+	///@param {String} name The name of the value
+	///@param {Any} value The value to be set
+	///@returns {Struct.SSave} Returns self for chaining
+	static set = function(name, value)
+	{
+		var _valueData = __get_value_data(name);
+		if (_valueData == undefined)
+			__throw_name_doesnt_exist(name);
+		else
+			_valueData.set(value);
+		
 		return self;
 	}
 	
-	///@desc Adds a new value to the ssave (This is intended to be called inside the constructor, see the demo for example)
-	///@param {string} name The name of the value
-	///@param {SSAVE_TYPE} type The type of the value
-	///@param {any} defaultValue The default value
-	static add_value = function(_name, _type, _defaultValue)
+	///@desc Resets a value in the ssave to it's default value
+	///@param {String} name The name of the value
+	///@returns {Struct.SSave} Returns self for chaining
+	static reset = function(name)
 	{
-		var _value = new __ssave_class_value(_name, _type, _defaultValue);
-		__values[$ _name] = _value;
+		var _default = get_default(name);
+		set(name, _default);
+		return self;
+	}
+	
+	///@desc Resets all values in the ssave to their default values
+	///@returns {Struct.SSave} Returns self for chaining
+	static reset_all = function()
+	{
+		var i = 0;
+		var _names = variable_struct_get_names(__values);
+		repeat (array_length(_names))
+		{
+			var _name = _names[i++];
+			reset(_name);
+		}
+		
+		return self;
+	}
+	
+	///@desc Deletes the file from disk if it exists
+	///@returns {Struct.SSave} Returns self for chaining
+	static erase = function()
+	{
+		var _filename = __get_filename();
+		if (file_exists(_filename))
+			file_delete(_filename);
+		
+		return self;
+	}
+	
+	///@ignore (This is intended to be called inside the constructor, see the demo for example)
+	///@desc Adds a new value to the ssave
+	///@param {String} name The name of the value
+	///@param {Real} type The SSAVE_TYPE type of the value
+	///@param {Any} defaultValue The default value
+	static add_value = function(name, type, defaultValue)
+	{
+		var _value = new __ssave_class_value(name, type, defaultValue);
+		__values[$ name] = _value;
 	}
 	
 	///@desc Saves the ssave
+	///@returns {Bool} Returns success
 	static save = function()
 	{
 		var _filename = __get_filename();
@@ -46,56 +100,59 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 	}
 	
 	///@desc Loads the ssave
-	///@param {any} [filePrefix] When not undefined, set_file_prefix is called with this as its argument
-	static load = function(_filePrefix = undefined)
+	///@param {Any} [filePrefix] When not undefined, set_file_prefix is called with this as its argument
+	///@returns {Bool} Returns success
+	static load = function(filePrefix = undefined)
 	{
-		if (_filePrefix != undefined)
-			set_file_prefix(_filePrefix);
+		if (filePrefix != undefined)
+			set_file_prefix(filePrefix);
 		
 		var _filename = __get_filename();
 		return __load_from_file(_filename);
 	}
 	
 	///@desc Returns the current SSAVE_PROTECTION type
-	///@returns {SSAVE_PROTECTION} Current SSAVE_PROTECTION type
+	///@returns {Real} Current SSAVE_PROTECTION type
 	static get_protection = function()
 	{
 		return __protection;
 	}
 	
 	///@desc Updates the current SSAVE_PROTECTION type
-	///@param {SSAVE_PROTECTION} protection The new SSAVE_PROTECTION type
-	///@returns {SSave} Returns self for chaining
-	static set_protection = function(_protection)
+	///@param {Real} protection The new SSAVE_PROTECTION type
+	///@returns {Struct.SSave} Returns self for chaining
+	static set_protection = function(protection)
 	{
-		__protection = _protection;
+		__protection = protection;
 		return self;
 	}
 	
 	///@desc Sets the prefix of the filename (useful for storing multiple of the same type of SSave, see the demo for example)
-	///@param {any} [filePrefix] The prefix
-	///@returns {SSave} Returns self for chaining
-	static set_file_prefix = function(_filePrefix)
+	///@param {String|Real} filePrefix The prefix (will be converted into a string)
+	///@returns {Struct.SSave} Returns self for chaining
+	static set_file_prefix = function(filePrefix)
 	{
-		__filePrefix = string(_filePrefix);
+		__filePrefix = string(filePrefix);
+		return self;
 	}
 	
 	///@desc Gets the current file prefix
-	///@returns {string} The file prefix
+	///@returns {String} The file prefix
 	static get_file_prefix = function()
 	{
 		return __filePrefix;
 	}
 	
 	///@desc Gets the file prefix + ssave name
-	///@returns {string} The full name
+	///@returns {String} The full name
 	static get_full_name = function()
 	{
 		return (__filePrefix + __name);
 	}
 	
-	#region internal
+	#region internals
 	
+	///@ignore
 	static __save_to_file = function(_filename)
 	{
 		var _success, _buffer = undefined, _data = undefined;
@@ -133,7 +190,7 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 		}
 		catch (_e)
 		{
-			__ssave_print("error saving file \"", _filename, "\" | ", _e.message);
+			__ssave_print("error saving file \"", _filename, "\" | error: ", _e);
 			_success = false;
 		}
 		finally
@@ -148,6 +205,7 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 		return _success;
 	}
 	
+	///@ignore
 	static __load_from_file = function(_filename)
 	{
 		if (!file_exists(_filename)) return false;
@@ -163,14 +221,6 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 			switch (_header.get_version())
 			{
 				default:
-				case "1.4.0": // im beginning to think i overengineered this
-				case "1.3.3":
-				case "1.3.2":
-				case "1.3.1":
-				case "1.3.0":
-				case "1.2.0":
-				case "1.1.1":
-				case "1.0.1":
 				case "1.0.0":
 				{
 					var _bufferPos = buffer_tell(_buffer);
@@ -178,7 +228,10 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 					_data = buffer_create(_dataSize, buffer_fixed, 1);
 					buffer_copy(_buffer, _bufferPos, _dataSize, _data, 0);
 
-					switch (_header.get_protection())
+					var _protection = _header.get_protection();
+					set_protection(_protection);
+					
+					switch (_protection)
 					{
 						default:
 						case SSAVE_PROTECTION.NONE:
@@ -219,7 +272,7 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 		}
 		catch (_e)
 		{
-			__ssave_print("error loading file \"", _filename, "\" | ", _e.message);
+			__ssave_print("error loading file \"", _filename, "\" | error: ", _e);
 			_success = false;
 		}
 		finally
@@ -231,19 +284,23 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 				buffer_delete(_data);
 		}
 		
+		show_debug_message(_success);
 		return _success;
 	}
 	
+	///@ignore
 	static __get_value_data = function(_name)
 	{
 		return __values[$ _name];
 	}
 	
+	///@ignore
 	static __get_filename = function()
 	{
 		return (__ssave_get_save_directory() + get_full_name() + "." + __SSAVE_FILE_EXTENSION);
 	}
 	
+	///@ignore
 	static __generate_output_struct = function()
 	{
 		var _save = { };
@@ -251,28 +308,26 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 		var i = 0;
 		repeat (array_length(_names))
 		{
-			var _value;
 			var _name = _names[i++];
 			var _valueData = __get_value_data(_name);
 			switch (_valueData.get_type())
 			{
 				default:
-					_value = _valueData.get();
+					_save[$ _name] = _valueData.get();
 					break;
 				
 				case SSAVE_TYPE.BUFFER:
 					var _buffer = _valueData.get();
 					var _bufferSize = buffer_get_size(_buffer);
-					_value = buffer_base64_encode(_buffer, 0, _bufferSize);
+					_save[$ _name] = buffer_base64_encode(_buffer, 0, _bufferSize);
 					break;
 			}
-			
-			_save[$ _name] = _value;
 		}
 		
 		return _save;
 	}
 	
+	///@ignore
 	static __decode_output_struct = function(_save)
 	{
 		var i = 0;
@@ -299,15 +354,20 @@ function SSave(_name = "data", _protection = SSAVE_PROTECTION_DEFAULT) construct
 		}
 	}
 	
+	///@ignore
 	static __throw_name_doesnt_exist = function(_name)
 	{
-		throw ("SSave value name \"" + _name + "\" doesn't exist--did you get the name wrong?");
+		__ssave_throw("value name \"" + _name + "\" doesn't exist--did you get the name wrong?");
 	}
 	
-	__name = _name;
-	__protection = _protection;
+	///@ignore
+	__name = name;
+	///@ignore
+	__protection = protection;
 	
+	///@ignore
 	__values = { };
+	///@ignore
 	__filePrefix = SSAVE_FILE_PREFIX_DEFAULT;
 	
 	#endregion

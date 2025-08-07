@@ -1,3 +1,5 @@
+// feather ignore GM1041
+
 function __ssave_class_value(_name, _type, _defaultValue) constructor
 {
 	static get = function()
@@ -5,10 +7,18 @@ function __ssave_class_value(_name, _type, _defaultValue) constructor
 		return (__value ?? __defaultValue);
 	}
 	
+	static get_default = function()
+	{
+		return __defaultValue;
+	}
+	
 	static set = function(_value)
 	{
-		if (!__is_type(_value))
-			return __ssave_print("Tried to set the value of ", __name, " to something other than it's type. Ignoring request.");
+		if (!__is_type(_value)) {
+            var _message = $"Tried to set the value of `{__name}` to something other than it's type.";
+            ((SSAVE_ERROR_ON_SET_INVALID_TYPE) ? __ssave_throw(_message) : __ssave_print(_message));
+			return;
+        }
 		
 		switch (__type)
 		{
@@ -28,7 +38,6 @@ function __ssave_class_value(_name, _type, _defaultValue) constructor
 					buffer_seek(_value, buffer_seek_start, 0);
 					_value = _buffer;
 				}
-				
 				break;
 		}
 		
@@ -51,7 +60,7 @@ function __ssave_class_value(_name, _type, _defaultValue) constructor
 				return is_array(_value);
 			
 			case SSAVE_TYPE.BOOLEAN:
-				return (is_bool(_value) || is_real(_value));
+				return (is_bool(_value) || is_real(_value) || is_int64(_value) || is_int32(_value));
 			
 			case SSAVE_TYPE.REAL:
 				return is_real(_value);
@@ -74,5 +83,5 @@ function __ssave_class_value(_name, _type, _defaultValue) constructor
 	
 	// Make sure the default value is actually valid
 	if (!__is_type(__defaultValue))
-		throw ("SSave value \"" + __name + "\" has a default value which isn't of the correct type"); 
+        __ssave_throw("value \"" + __name + "\" has a default value which isn't of the correct type"); 
 }

@@ -48,7 +48,7 @@ function __ssave_class_header() constructor
 	
 	static __throw_not_an_ssave = function()
 	{
-		throw "File is not a real SSave file";
+        __ssave_throw("File is not a real SSave file");
 	}
 	
 	__version = __SSAVE_VERSION;

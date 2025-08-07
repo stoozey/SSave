@@ -1,30 +1,49 @@
-playtime += (delta_time / 1000000);
+// lerp animation values
+blockHeightOffset = lerp(blockHeightOffset, 0, 0.15);
+coinAnim  = lerp(coinAnim, 0, 0.1);
 
-var _moveSpeed = 4;
-var _xAxis = ((keyboard_check(vk_right) || keyboard_check(ord("D"))) - (keyboard_check(vk_left) || keyboard_check(ord("A"))));
-var _yAxis = ((keyboard_check(vk_down) || keyboard_check(ord("S"))) - (keyboard_check(vk_up) || keyboard_check(ord("W"))));
-x += (_xAxis * _moveSpeed);
-y += (_yAxis * _moveSpeed);
-
-switch (_xAxis)
-{
-	case 1: sprite_index = spr_ssave_demo_player_right; break;
-	case -1: sprite_index = spr_ssave_demo_player_left; break;
-}
-
-switch (_yAxis)
-{
-	case 1: sprite_index = spr_ssave_demo_player_down; break;
-	case -1: sprite_index = spr_ssave_demo_player_up; break;
-}
-
-var _moving = ((_xAxis | _yAxis) != 0);
-if (_moving)
-{
-	image_speed = 0.33;
-}
-else
-{
-	image_speed = 0;
-	image_index = 0;
+// handle player state
+switch (playerState) {
+	case PLAYER_STATE.IDLE:
+        // if pressing space, begin the jump
+		if (keyboard_check_pressed(vk_space))
+			playerState = PLAYER_STATE.JUMP_UP;
+		break;
+	
+	case PLAYER_STATE.JUMP_UP:
+        // move player up until they reach the block
+		var _jumpSpeed = 8;
+		playerHeightOffset -= _jumpSpeed;
+        
+        var _maxY = -32;
+		if (playerHeightOffset > _maxY) break;
+		
+        // start falling
+		playerState = PLAYER_STATE.JUMP_DOWN;
+		break;
+	
+	case PLAYER_STATE.JUMP_DOWN:
+        // make player fall, allowing it a little early if theyre still pressing space
+		var _fallSpeed = 8;
+		playerHeightOffset += _fallSpeed;
+    
+        var _groundY = 0;
+		if (playerHeightOffset <= _groundY) break;
+		
+        // reset player
+		playerHeightOffset = 0;
+		playerState = PLAYER_STATE.IDLE;
+		
+        // move block up for hit animation
+		blockHeightOffset = -16;
+	    
+        // begin coin animation and assign random coin index
+		coinAnim = 1;
+		coinIndex = irandom(sprite_get_number(spr_ssave_demo_coin) - 1);
+        
+        // calculate coin value and increment manager's value with it
+        var _coinIncrement = GetCoinAmount();
+		with (obj_ssave_demo_manager)
+            IncrementCoins(_coinIncrement);
+		break;
 }

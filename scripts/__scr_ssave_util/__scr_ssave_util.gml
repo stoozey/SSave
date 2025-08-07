@@ -8,6 +8,16 @@ function __ssave_print()
     show_debug_message(_string);
 }
 
+function __ssave_throw()
+{
+    var _string = "SSave: ";
+    var _i = 0;
+    repeat (argument_count)
+        _string += string(argument[_i++]);
+	
+    throw (_string);
+}
+
 function __ssave_get_save_directory()
 {
 	if (SSAVE_DIRECTORY == "") return SSAVE_DIRECTORY;
@@ -46,7 +56,7 @@ function __ssave_string_to_buffer(_string)
 function __ssave_encrypt(_json)
 {
 	var _buffer = __ssave_string_to_buffer(_json);
-    var _encrypted = __ssave_3rdparty_sphinx_encrypt_buffer(_buffer, SSAVE_ENCRYPTION_KEY)
+    var _encrypted = __ssave_thirdparty_sphinx_encrypt_buffer(_buffer, SSAVE_ENCRYPTION_KEY);
 	buffer_delete(_buffer);
 	
 	return _encrypted;
@@ -54,7 +64,7 @@ function __ssave_encrypt(_json)
 
 function __ssave_decrypt(_buffer)
 {
-	var _decrypted = __ssave_3rdparty_sphinx_decrypt_buffer(_buffer, SSAVE_ENCRYPTION_KEY);
+	var _decrypted = __ssave_thirdparty_sphinx_decrypt_buffer(_buffer, SSAVE_ENCRYPTION_KEY);
 	var _json = buffer_read(_decrypted, buffer_text);
 	return _json;
 }
