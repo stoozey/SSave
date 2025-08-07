@@ -228,7 +228,10 @@ function SSave(name = "data", protection = SSAVE_PROTECTION_DEFAULT) constructor
 					_data = buffer_create(_dataSize, buffer_fixed, 1);
 					buffer_copy(_buffer, _bufferPos, _dataSize, _data, 0);
 
-					switch (_header.get_protection())
+					var _protection = _header.get_protection();
+					set_protection(_protection);
+					
+					switch (_protection)
 					{
 						default:
 						case SSAVE_PROTECTION.NONE:
