@@ -22,7 +22,7 @@ coinAnim = 0;
 coinIndex = 0;
 
 // load font
-var _font = font_add("Early GameBoy.ttf", 12, true, false, 32, 128);
+var _font = font_add("DEMO FONT.ttf", 12, true, false, 32, 128);
 draw_set_font(_font);
 
 // enlarge and centre window

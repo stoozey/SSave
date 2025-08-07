@@ -19,7 +19,7 @@
   ],
   "ForcedPrefabProjectReferences":[],
   "IncludedFiles":[
-    {"$GMIncludedFile":"","%Name":"Early GameBoy.ttf","CopyToMask":-1,"filePath":"datafiles","name":"Early GameBoy.ttf","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
+    {"$GMIncludedFile":"","%Name":"DEMO FONT.ttf","CopyToMask":-1,"filePath":"datafiles","name":"DEMO FONT.ttf","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
   ],
   "isEcma":false,
   "LibraryEmitters":[],
