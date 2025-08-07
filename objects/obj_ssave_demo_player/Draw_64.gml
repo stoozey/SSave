@@ -28,7 +28,7 @@ draw_set_colour(c_black);
 	draw_text(_keyBindingsX, _keyBindingsY,
 		"Controls:\n" +
 		"Spacebar - Jump\n" +
-		"1, 2, 3 - Set Save Slot\n" + 
+		"1,2,3 - Set Save Slot\n" + 
 		"M - Toggle Audio"
 	);
 draw_set_colour(c_white);
