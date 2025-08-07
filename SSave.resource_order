@@ -17,6 +17,7 @@
     {"name":"__scr_ssave_value","order":1,"path":"scripts/__scr_ssave_value/__scr_ssave_value.yy",},
     {"name":"scr_ssave_config","order":2,"path":"scripts/scr_ssave_config/scr_ssave_config.yy",},
     {"name":"scr_ssave_manager","order":3,"path":"scripts/scr_ssave_manager/scr_ssave_manager.yy",},
+    {"name":"snd_ssave_demo_coin","order":35,"path":"sounds/snd_ssave_demo_coin/snd_ssave_demo_coin.yy",},
     {"name":"spr_ssave_demo_block","order":12,"path":"sprites/spr_ssave_demo_block/spr_ssave_demo_block.yy",},
     {"name":"spr_ssave_demo_clouds_background","order":4,"path":"sprites/spr_ssave_demo_clouds_background/spr_ssave_demo_clouds_background.yy",},
     {"name":"spr_ssave_demo_clouds_foreground","order":5,"path":"sprites/spr_ssave_demo_clouds_foreground/spr_ssave_demo_clouds_foreground.yy",},

@@ -14,7 +14,7 @@ var _subImg = (current_time / 250);
 var _playerY = (PLAYER_BASE_Y + playerHeightOffset);
 var _spriteIndex;
 switch (playerState) {
-	case PLAYER_STATE.IDLE: _spriteIndex = spr_ssave_demo_player_idle; break;
+	default: _spriteIndex = spr_ssave_demo_player_idle; break;
 	case PLAYER_STATE.JUMP_UP: _spriteIndex = spr_ssave_demo_player_jump_up; break;
 	case PLAYER_STATE.JUMP_DOWN: _spriteIndex = spr_ssave_demo_player_jump_down; break;
 }

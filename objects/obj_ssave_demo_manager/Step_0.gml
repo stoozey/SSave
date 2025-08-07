@@ -10,6 +10,13 @@ repeat (3) {
 	_key++;
 }
 
+// toggle sound effects when pressing "M" key
+if (keyboard_check_pressed(ord("M"))) {
+	var _config = ssave_get(ConfigFile);
+	var _soundsEnabled = _config.get("soundsEnabled");
+	_config.set("soundsEnabled", !_soundsEnabled);
+}
+
 // delete the save file when backspace is pressed
 if (keyboard_check_pressed(vk_backspace))
 	ssave_erase(SaveFile, currentSlotIndex);

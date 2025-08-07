@@ -44,6 +44,7 @@
     {"id":{"name":"scr_ssave_demo_saves","path":"scripts/scr_ssave_demo_saves/scr_ssave_demo_saves.yy",},},
     {"id":{"name":"scr_ssave_manager","path":"scripts/scr_ssave_manager/scr_ssave_manager.yy",},},
     {"id":{"name":"scr_ssave","path":"scripts/scr_ssave/scr_ssave.yy",},},
+    {"id":{"name":"snd_ssave_demo_coin","path":"sounds/snd_ssave_demo_coin/snd_ssave_demo_coin.yy",},},
     {"id":{"name":"spr_ssave_demo_background","path":"sprites/spr_ssave_demo_background/spr_ssave_demo_background.yy",},},
     {"id":{"name":"spr_ssave_demo_block","path":"sprites/spr_ssave_demo_block/spr_ssave_demo_block.yy",},},
     {"id":{"name":"spr_ssave_demo_clouds_background","path":"sprites/spr_ssave_demo_clouds_background/spr_ssave_demo_clouds_background.yy",},},

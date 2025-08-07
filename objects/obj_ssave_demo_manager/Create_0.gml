@@ -20,7 +20,6 @@ Load = function(_slotIndex) {
     // write to config
 	ssave_get(ConfigFile)
 		.set("lastLoadedSlot", currentSlotIndex)
-		.save();
 }
 
 // get the save matching our slot index, then write the objects values to it
@@ -45,6 +44,10 @@ Save = function() {
 // increment coins, used in `obj_ssave_demo_player`
 IncrementCoins = function(_amount) {
     totalCoins += _amount;
+	
+	var _config = ssave_get(ConfigFile);
+	if (_config.get("soundsEnabled"))
+		audio_play_sound(snd_ssave_demo_coin, 0, false);
 }
 
 playtime = 0;
