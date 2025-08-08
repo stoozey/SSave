@@ -17,4 +17,3 @@ Any other code/assets aren't relevant to SSave itself.
 ### SSave
 
 Everything you need is right in the root SSave folder, so there's no need to go into the `Internal` folder - unless you want to...?
-The scripts in the root SSave folder all have JSDoc defined.

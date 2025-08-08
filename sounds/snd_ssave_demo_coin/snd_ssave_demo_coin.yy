@@ -12,8 +12,8 @@
   "duration":0.37873015,
   "name":"snd_ssave_demo_coin",
   "parent":{
-    "name":"Demo",
-    "path":"folders/Demo.yy",
+    "name":"Sounds",
+    "path":"folders/Demo/Sounds.yy",
   },
   "preload":false,
   "resourceType":"GMSound",
