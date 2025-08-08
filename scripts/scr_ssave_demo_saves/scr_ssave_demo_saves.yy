@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"scr_ssave_demo_saves",
   "parent":{
-    "name":"Demo",
-    "path":"folders/Demo.yy",
+    "name":"Scripts",
+    "path":"folders/Demo/Scripts.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

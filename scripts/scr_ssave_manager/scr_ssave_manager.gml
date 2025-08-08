@@ -192,9 +192,6 @@ function SSaveManager() constructor
 
 #region internal
 
-if (SSAVE_USE_MANAGER)
-	global.__ssave_manager = new SSaveManager();
-
 function __ssave_throw_if_not_using_manager() {
 	if (!SSAVE_USE_MANAGER)
 		__ssave_throw("tried to use the SSave manager whilst config value \"SSAVE_USE_MANAGER\" is false");
