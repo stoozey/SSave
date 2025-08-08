@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_ssave_demo_saves",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_ssave_demo_saves",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Demo/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
