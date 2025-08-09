@@ -1,17 +1,20 @@
 <p align="center">
-<div align="center">
-  <img src="https://imgur.com/7c0Libn.png" alt="SSave - A simple save file system for GameMaker" _target="blank" height=200/>
+  <div align="center">
+    <img src="https://imgur.com/7c0Libn.png" alt="SSave - A simple save file system for GameMaker" _target="blank" height=200/>
   </div>
   <div align="center">
-   A simple save file system for GameMaker
-   <p>Available for download on <a href="https://stoozey.itch.io/ssave">Itch.io</a> and <a href="https://marketplace.yoyogames.com/assets/11246">GameMaker Marketplace</a>.</p>
-   </div>
+    A simple save file system for GameMaker
+    <p>
+      Available for download on <a href="https://stoozey.itch.io/ssave">Itch.io</a> and <a href="https://marketplace.yoyogames.com/assets/11246">GameMaker Marketplace</a>
+    </p>
+    <p>
+      Check out the <a href="https://stoozey.github.io/SSave-Docs/"> documentation here</a>!
+    </p>
+  </div>
 </p>
 
 While save files can be simple, there are a lot of issues that come from just simply saving and loading raw data.
 SSave tackles these problems whilst also having quality-of-life features that make creating save data easier and more secure.
-
-View the [documentation here](https://stoozey.github.io/SSave-Docs/)!
 
 ### ***Why use SSave?***
 
