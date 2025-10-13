@@ -33,7 +33,7 @@ draw_set_colour(c_black);
 	);
 draw_set_colour(c_white);
 
-#region
+#endregion
 
 #region draw save slot panels
 
